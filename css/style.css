@@ -2126,8 +2126,8 @@ ul.popup-todo__tab li label {
   position: fixed;
   top: 50px;
   left: 50%;
-  -webkit-transform: translateY(-50%);
-          transform: translateY(-50%);
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
   padding: 16px;
   z-index: 1002;
   border-radius: 10px;

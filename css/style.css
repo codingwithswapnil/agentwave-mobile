@@ -1814,7 +1814,7 @@ header use {
   bottom: 0;
 }
 .popup-todo {
-  max-height: calc(100% - 50px);
+  max-height: calc(100% - 100px);
   padding: 0 !important;
   z-index: 1003;
   overflow-y: auto;

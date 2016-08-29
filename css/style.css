@@ -1889,13 +1889,13 @@ header use {
 }
 
 .popup-todo__btn-container {
-  position: fixed;
-  width: 100%;
-  bottom: 0px;
+  // position: fixed;
+  // width: 100%;
+  // bottom: 0px;
   padding: 10px;
 
   background-color: white;
-  z-index: 13;
+  // z-index: 13;
   border-radius: 10px;
 }
 hr {

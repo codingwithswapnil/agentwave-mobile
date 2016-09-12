@@ -44,7 +44,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
   </head>
-  <body onload="prepareCASLPage();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+  <body onload="prepareNewClientPage();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
 <symbol id="back-icon" viewBox="0 0 6 10"><title>close-icon</title><path d="M1.237 4.35L5.582 0 6 .419 1.656 4.77 6 9.12l-.418.42-4.345-4.352-.418-.418z" fill="#FFF" fill-rule="evenodd"/>
 </symbol>
 <symbol id="close-icon" viewBox="0 0 10 10"><title>close-icon</title><path d="M9.107 0L4.763 4.35.418 0 0 .419 4.344 4.77 0 9.12l.418.42 4.345-4.352 4.344 4.35.42-.418L5.18 4.77 9.526.419z" fill="#FFF" fill-rule="evenodd"/>
@@ -106,226 +106,152 @@
       </button>
     </header>
     <main>
-      <div class="casl no-indent">
+      <div class="new-client no-indent">
         <div class="casl__container">
-          <div class="casl__contentpane">
-            <div class="profile-data center-pane">
-              <p class="client-name-text">Megan Rain</p>                  3003 Rocky Beach St. Rd W Grand Pacific Tower 2 Los Angeles, California<br/><br/>          (+12) 345 6789<br/>meganrain@cwmp.com<br/><br/>
+          <div class="center-pane">
+            <ul class="breadcrumbs">
+						  <li><a href='#'>Transaction</a></li>
+						  <li class="current"><a>Add / Edit Transaction</a></li>
+						</ul>
+            <div class="indent">
+		          <div class="new-client__table-block">
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Type of Transaction</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text" onClick="onTransactionInputPopupShow(event, ['Buyer Closing', 'Seller Listing'])"/>
+		              </div>
+		            </div>
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">ML5</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text"/>
+		              </div>
+		            </div>
+		          </div>
+		          <div class="new-client__full-width-block">
+		            <label class="new-client__cell-block">Property Address</label>
+		            <textarea class="new-client__textarea" placeholder="123 Sample St, Cityname, Prov/State, Postal"></textarea>
+		          </div>
+		          <div class="new-client__table-block">
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Bedrooms</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text"/>
+		              </div>
+		            </div>
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Bathrooms</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text"/>
+		              </div>
+		            </div>
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Type of Property</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text" onClick="onTransactionInputPopupShow(event, ['Apartment', 'Condo', 'Townhouse', 'Semi-Detached', 'Bungalow', '1.5 Storey', '2 Storey', '3 Storey', 'Backsplit and Elevated Ranch'])"/>
+		              </div>
+		            </div>
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Asking Price</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text"/>
+		              </div>
+		            </div>
+		            <div class="new-client__row-block">
+		              <label class="new-client__cell-block">Status</label>
+		              <div class="new-client__cell-block">
+		                <input class="new-client__input" type="text" onChange="onSectorShow(event, '.transaction-dates-sector')" onClick="onTransactionInputPopupShow(event, ['Active', 'Conditional', 'Closing', 'Closed', 'Sold', 'Expired/Cancelled'], onSectorShow(event, '.transaction-dates-sector'))"/>
+		              </div>
+		            </div>
+	            </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="casl__container transaction-dates-sector">
+          <div class="center-pane indent">
+              <div class="new-client__table-block">
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Financing</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Inspection</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Insurance</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Sale of Home</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Status Sertificate</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+
+        <div class="casl__container">
+          <div class="center-pane indent">
+              <div class="new-client__table-block">
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Closes On</label>
+                  <div class="new-client__cell-block">
+                    <input class="new-client__input" type="date"/>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Buyer</label>
+                  <div class="popup-todo__tabcontent new-client__cell-block">
+					          <div class="attached-clients"></div>
+				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-buyer'), event);" placeholder="Associate with buyer"/>
+				            <div class='popup-todo__results' id="results-buyer"></div>
+                  </div>
+                </div>
+                <div class="new-client__row-block">
+                  <label class="new-client__cell-block">Seller</label>
+                  <div class="popup-todo__tabcontent new-client__cell-block">
+					          <div class="attached-clients"></div>
+				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-seller'), event);" placeholder="Associate with seller"/>
+				            <div class='popup-todo__results' id="results-seller"></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-          <div class="casl__button casl__blue-btn radius_15 center-pane" id='spouse-partner' onclick="showAddPersonPopup()">
-            <div class='btn-inner-text'>Spouse / Partner</div>
-          </div><br/>
-          <div class="casl__button casl__orange-btn radius_15 center-pane">Edit Profile</div>
-
-          </div>
-          <div class="no-indent" id="marketing-pane">
-            <div class="casl__contentpane align-left indent">Tags
-              <div class="casl__tag-box" id="tags">
-                <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"/>
-              </div>
-              <div class="casl__tag-find-result"></div>
-            </div>
-            <ul class="categories-bar no-indent flex-block">
-              <li class="category" id="open" onclick="selectCategory(event)"><img class="center-pane" src="images/open.png" width="20" height="20"/>Open</li>
-              <li class="category" id="closed" onclick="selectCategory(event)"><img class="center-pane" src="images/closed.png" width="20" height="20"/>Closed</li>
-              <li class="category" id="connecting" onclick="selectCategory(event)"><img class="center-pane" src="images/connecting.png" width="20" height="20"/>Connecting</li>
-              <li class="category" id="follow-up" onclick="selectCategory(event)"><img class="center-pane" src="images/follow-up.png" width="20" height="20"/>Follow Up</li>
-              <li class="category no-cat selected" id="no-category" onclick="selectCategory(event)"><img class="center-pane" src="images/no-category-active.png" width="20" height="20"/>No Category</li>
-            </ul>
-            <div class="casl__contentpane align-left indent">Follow Up Plan
-              <div class="casl__tag-box">
-                <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"/>
-              </div>
-              <div class="casl__tag-find-result"></div>            Email List
-              <div class="casl__tag-box">
-                <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"/>
-              </div>
-              <div class="casl__tag-find-result"></div>
-            </div>
-            <div class='indent'>
-                <div class="casl__button casl__green-btn radius_30">Save</div>
+            <div class="indent">
+              <div class="new-client__button new-client__green-btn radius_30">Save</div>
             </div>
           </div>
-          <div class="casl__button casl__gray-btn" id="marketing-btn" onclick="controlPaneVisibility(this, document.getElementById(&quot;marketing-pane&quot;));">
-            <div>Show Marketing</div><span class="casl__image arrow-show"></span>
-          </div>
-        </div>
-        <div class="casl__container">
-          <ul class="casl__tab no-indent flex-block">
-            <li class="casl__tablinks" id="log-link" onclick="commonOpenTab(event, 'casl__')">Log</li>
-            <li class="casl__tablinks" id="wishlist-link" onclick="commonOpenTab(event, 'casl__')">Wishlist</li>
-            <li class="casl__tablinks" id="history-link" onclick="commonOpenTab(event, 'casl__')">History</li>
-            <li class="casl__tablinks" id="CASL-link" onclick="commonOpenTab(event, 'casl__')">CASL</li>
-          </ul>
-          <div class="indent">
-            <div class="casl__tabcontent" id="log">
-              <input class="casl__input" type="text"/><span class="casl__image find"></span>
-              <div class="log-search-result"></div>
-              <ul class="infinite-scroll-list">
-              </ul>
-            </div>
-            <div class="casl__tabcontent" id="wishlist">
-                
-                <div class="indent">
-                  <div class="new-client__table-block">
-                    <div class="new-client__row-block">
-                      <label class="new-client__cell-block">Property Type</label>
-                      <div class="new-client__cell-block">
-                        <input class="new-client__input" type="text"/>
-                      </div>
-                    </div>
-                    <div class="new-client__row-block">
-                      <label class="new-client__cell-block">Min. Price</label>
-                      <div class="new-client__cell-block">
-                        <input class="new-client__input" type="text"/>
-                      </div>
-                    </div>
-                    <div class="new-client__row-block">
-                      <label class="new-client__cell-block">Max. Price</label>
-                      <div class="new-client__cell-block">
-                        <input class="new-client__input" type="text"/>
-                      </div>
-                    </div>
-                    <div class="new-client__row-block">
-                      <label class="new-client__cell-block">Bedrooms</label>
-                      <div class="new-client__cell-block">
-                        <input class="new-client__input" type="text"/>
-                      </div>
-                    </div>
-                    <div class="new-client__row-block">
-                      <label class="new-client__cell-block">Bathrooms</label>
-                      <div class="new-client__cell-block">
-                        <input class="new-client__input" type="text"/>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="new-client__full-width-block"></div>
-                  <div class="new-client__bold-text">Interested in these areas</div>
-                  <div class="new-client__list-of-clickable-blocks flex-block">
-                    <div class="new-client__clickable-block">North</div>
-                    <div class="new-client__clickable-block">West</div>
-                    <div class="new-client__clickable-block">South</div>
-                    <div class="new-client__clickable-block">East</div>
-                  </div>
-                </div>
-                <div class="new-client__button new-client__gray-btn" id="special-features-btn" onclick="controlPaneVisibility(this,document.getElementById(&quot;special-features&quot;));">
-                  <div>Special Features</div><span class="new-client__image arrow-show"></span>
-                </div>
-                <div class="indent" id="special-features">
-                  <div class="new-client__list-of-clickable-blocks flex-block">
-                    <div class="new-client__clickable-block">Pool</div>
-                    <div class="new-client__clickable-block">Parking</div>
-                    <div class="new-client__clickable-block">Quiet Street</div>
-                    <div class="new-client__clickable-block">In Law Suite</div>
-                    <div class="new-client__clickable-block">Large Lot</div>
-                    <div class="new-client__clickable-block">Finished Basement</div>
-                    <div class="new-client__clickable-block">Detached Garage</div>
-                    <div class="new-client__clickable-block">Attached Garage</div>
-                    <div class="new-client__clickable-block">Ravine</div>
-                    <div class="new-client__clickable-block">Double Garage</div>
-                    <div class="new-client__clickable-block">Ensuit Bath</div>
-                    <div class="new-client__clickable-block">Waterfront</div>
-                    <div class="new-client__clickable-block">Main Floor Laundry</div>
-                    <div class="new-client__clickable-block">Main Flr Fmly Room</div>
-                    <div class="new-client__clickable-block">Granite Counters</div>
-                    <div class="new-client__clickable-block">Main Floor Den</div>
-                    <div class="new-client__clickable-block">Needs Rep</div>
-                  </div>
-                </div>
-
-                <div class="casl__button casl__green-btn radius_30">Save</div>
-            </div>
-            <div class="casl__tabcontent" id="history"></div>
-            <div class="casl__tabcontent" id="CASL">
-              <select class="select-consent radius_15" onchange="setConsentPane(this.value);">
-                <option value="0" selected="">Change consent Level 5</option>
-                <option value="0">None</option>
-                <option value="1">Implient Consent</option>
-                <option value="2">Expressed Consent</option>
-              </select>
-              <div class="consent-pane no-indent" id="pane-0">
-                <div class="consent-info">
-                  <p>Current consent level</p>
-                  <p>4</p>
-                </div>
-                <div class="consent-info">
-                  <p>Date consent received</p>
-                  <p>4/14/2015</p>
-                </div>
-                <div class="consent-info">
-                  <p>Method received</p>
-                  <p>Yes</p>
-                </div>
-                <div class="consent-info">
-                  <p>IP Address</p>
-                  <p>121.146.201.87</p>
-                </div>
-              </div>
-              <div class="consent-pane no-indent" id="pane-1">How did you receive implied consent?
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Personal Relationship</div>
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Family Relationship</div>
-                <div class="consent-question">
-                  <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span>                      Existing Business Relationship</div>
-                  <div class="ask-question">
-                    <div class="no-indent">When was the last transaction you had with this client?
-                      <input class="casl__input center-pane" type="text"/>
-                    </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
-                  </div>
-                </div>
-                <div class="consent-question">
-                  <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span>                      They gave me their email</div>
-                  <div class="ask-question">
-                    <div class="no-indent">Is this client in a business that could use your services as a Realtor<br/>
-                      <label>
-                        <input type="radio" name="gave-email-question"/>Yes
-                      </label>
-                      <label>
-                        <input type="radio" name="gave-email-question"/>No
-                      </label>
-                    </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
-                  </div>
-                </div>
-                <div class="consent-question">
-                  <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span>                      Referal from existing client</div>
-                  <div class="ask-question">
-                    <div class="no-indent">Please, enter the name of the client who gave you referal
-                      <input class="casl__input center-pane" type="text"/>
-                    </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
-                  </div>
-                </div>
-                <div class="casl__button casl__blue-btn dark radius_15 center-pane">Obtain crossed consent on my behalf</div>
-              </div>
-              <div class="consent-pane no-indent" id="pane-2">
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Received consent on other platform</div>
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Received consent in writing</div>
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Received consent electronically</div>
-                <div class="consent-question"><span class="casl__image arrow-left"></span>                    Agentwave received consent</div>
-              </div>
-              
-              <div class="casl__button casl__green-btn radius_30">Save</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="casl__popup no-indent" id="add-person-popup">
-        <div class="casl__header center-pane">Add Spouse/Partner
-          <div class="casl__svgcontainer right" onclick="hideAddPersonPopup(event);">
-            <svg width="20" height="20">
-              <use x="0" y="0" fill="#FFFFFF" width="20" height="20" xlink:href="#close-icon"></use>
-            </svg>
-          </div>
-        </div>
-        <div class="casl__container">
-          <div class="attached-persons"></div>
-          <input class="casl__search-form" id="search-form" type="text" placeholder="Search Associate Client" onkeyup="findPersons(this.value, this.nextElementSibling);"/>
-          <div class="find-result-persons no-indent&quot;"></div>
-        </div>
-        <div class="casl__btn-container">
-          <div class="casl__button casl__green-btn radius_30" onclick="hideAddPersonPopup(event);">Save</div>
-        </div>
       </div>
     </main>
+    <!--popup-->
+
+
+
+    <div class='transaction-input-popup'>
+    </div>
+
+
+
+
+    <!--menu, searchpanel, etc-->
     <div class="search-panel">
       <ul class="searchbar__tab">
         <li class="searchbar__tablinks" id="client-link" onclick="onChangeSearchbarTab(event, 'searchbar__');">Client</li>

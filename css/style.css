@@ -465,6 +465,31 @@ h2 {
   font-weight: 300;
   margin: 0;
 }
+ul.breadcrumbs {
+    padding: 16px 0 10px 10px;
+}
+ul.breadcrumbs li a {
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    color: black;
+}
+ul.breadcrumbs li {
+    margin: 0;
+    float: left;
+    list-style: none;
+}
+ul.breadcrumbs li:first-child:before {
+    content: " ";
+    margin: 0;
+}
+ul.breadcrumbs li:before {
+    content: ">";
+    color: black;
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 10px;
+}
 .btn {
   display: inline-block;
   text-decoration: none;
@@ -557,6 +582,9 @@ h2 {
 .casl__container {
   background-color: #fff;
   border-bottom: 1px solid #b6b6b6;
+}
+.casl__container:not(:last-child) {
+  margin-bottom: 16px;
 }
 .casl__contentpane {
   padding: 0 16px;
@@ -1108,16 +1136,16 @@ option {
   width: 100%;
   margin: 5px 0;
 }
-.new-client__full-width-block label {
+.new-client__full-width-block label.new-client__cell-block {
   margin: 0;
 }
-.new-client__row-block label,
-.new-client__row-block div {
+
+.new-client__row-block .new-client__cell-block {
   display: table-cell;
   width: 50%;
   padding: 5px 0;
 }
-.new-client__row-block div select {
+.new-client__row-block .new-client__cell-block select {
   width: 100%;
   box-sizing: border-box;
   background: url("../images/arrow.png") no-repeat right #fff;
@@ -1591,6 +1619,31 @@ ul.new-client__tab li.active {
   background-color: #DB5168;
 }
 
+.transaction-input-popup {
+  position: absolute;
+  left: 50%;
+  padding: 10px;
+  z-index: 1002;
+  width: calc(50% - 24px);
+  display: none;
+
+  text-align: left;
+  font-size: 15px;
+
+  background-color: #f2f2f2;
+  border-bottom: 1px solid #b6b6b6;
+  border-right: 1px solid #b6b6b6;
+}
+
+.transaction-input-popup div:hover,
+.transaction-input-popup input[type="radio"]:checked + label {
+  font-weight: 600;
+  background-color: #b1b1b1;
+}
+
+.transaction-dates-sector {
+  display: none;
+}
 .action-with-person-popup {
   width: 100%;
   height: 100%;
@@ -1983,6 +2036,7 @@ select > option:hover {
 }
 .result-other-info-text {
   text-align: justify;
+  word-wrap: break-word;
   color: #f3be20;
 }
 .result-other-info-text:after {

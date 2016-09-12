@@ -215,17 +215,17 @@ function openOrangeTab(evt, paneId) {
 
 
 function attachClientById(evt) {
-    //var attachPane = document.getElementById('attached-clients');
     var attachPane = $(evt.target).closest('.popup-todo__tabcontent').find('.attached-clients')[0];
-    /*while (attachPane.children.length > 0) {
-        attachPane.removeChild(attachPane.children[0]);
-    }*/
     var clientId = parseInt(evt.target.id.replace('person', ''));
+
     if (isNaN(clientId))
         return;
+
     for (var i = 0; i < info['info'].length; i++) {
-        if (info['info'][i]['Id'] == clientId)
+        if (info['info'][i]['Id'] == clientId) {
             makeAttachedElem(attachPane, info['info'][i]);
+            $(event.target).closest('.popup-todo__tabcontent').find('input')[0].value = '';
+        }
     }
 }
 
@@ -240,7 +240,10 @@ function makeAttachedElem(parent, item) {
     attItem.appendChild(nameElem);
     var address = document.createElement('div');
     address.className = "result-address-text";
-    address.innerHTML = item['Address'];
+    if (item['Address'])
+      address.innerHTML= item['Address'];
+    else
+      address.innerHTML = 'No info';    
     attItem.appendChild(address);
     var otherinfoElem = document.createElement('div');
     otherinfoElem.className = "result-other-info-text";
@@ -248,7 +251,7 @@ function makeAttachedElem(parent, item) {
     if (item['e-mail'])
       str += item['e-mail'];
     else
-      str += 'no info';
+      str += 'No info';
 
     str += '</div><div>';
     if (item['Phone number'])
@@ -256,12 +259,12 @@ function makeAttachedElem(parent, item) {
     else
       str += 'No info';
     str += '</div>';
-  otherinfoElem.innerHTML = str;
+    otherinfoElem.innerHTML = str;
     //otherinfoElem.innerHTML = item['e-mail'] + ' ' + item['Phone number'];
     attItem.appendChild(otherinfoElem);
 }
 
-function startFindForPopupTodo(inputValue, resultPane) {
+function startFindForPopupTodo(inputValue, resultPane, event) {
     var elems = document.getElementsByClassName('popup-todo__search-result');
     while (resultPane.children.length > 0) {
         resultPane.removeChild(resultPane.children[0]);
@@ -269,6 +272,11 @@ function startFindForPopupTodo(inputValue, resultPane) {
     var result = finding(inputValue, 'Name');
     if (result.length == 0) {
         resultPane.style.display = 'none';
+        if (event.keyCode == 13 && inputValue != '') {
+          var attachPane = $(event.target).closest('.popup-todo__tabcontent').find('.attached-clients')[0];
+          makeAttachedElem(attachPane, {'Name' : inputValue});
+          event.target.value = '';
+        } 
     } else {
         resultPane.style.display = 'block';
     }
@@ -902,6 +910,44 @@ function onDeleteClientClick(e) {
 }
 
 
+function onTransactionInputPopupShow(e, values, callback) {
+  e.stopPropagation();
+  var currentValue = e.target.value;
+  var input = e.target;
+  var popup = $('.transaction-input-popup');
+  popup.empty();
+  for (var i = 0; i < values.length; i++) {
+    var id = "transaction-popup-" + i;
+    var item = document.createElement('div');
+    item.className = "popup-item";
+    var ischecked = (currentValue != '' && values[i].indexOf(currentValue) != -1);
+    var str = '<input type="radio" id="' + id + '" name="transaction-popup"' + (ischecked ? ' checked' : '') + '/>';
+    str += '<label for="' + id + '">' + values[i] + '</label>';
+    item.innerHTML = str;
+    item.value = values[i];
+    $(item).on('click', function(e) {
+        input.value = $(e.target).closest('.popup-item').text();
+        $( input).trigger( "change" );
+        popup.fadeOut();
+    });
+    popup.append(item);
+  }
+  $('.overlay').fadeIn();
+  popup.css({top: e.pageY + 'px'});
+  popup.fadeIn();
+  $(document).one('click', function(e) {
+      $('.overlay').fadeOut();
+      popup.fadeOut();
+  });/**/
+}
+
+function onSectorShow(e, blockSelector) {
+  if (e.target.value != '') {
+    if ($(blockSelector) != []) {
+      $(blockSelector).fadeIn();
+    }
+  }
+}
 
 (function($) {
 

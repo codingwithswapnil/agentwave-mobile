@@ -44,7 +44,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
   </head>
-  <body><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+  <body onload="prepareEmailMarketingPage(); makeRecipientList('.email-marketing__recipients-list');fillEmailPersonsList();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
 <symbol id="back-icon" viewBox="0 0 6 10"><title>close-icon</title><path d="M1.237 4.35L5.582 0 6 .419 1.656 4.77 6 9.12l-.418.42-4.345-4.352-.418-.418z" fill="#FFF" fill-rule="evenodd"/>
 </symbol>
 <symbol id="close-icon" viewBox="0 0 10 10"><title>close-icon</title><path d="M9.107 0L4.763 4.35.418 0 0 .419 4.344 4.77 0 9.12l.418.42 4.345-4.352 4.344 4.35.42-.418L5.18 4.77 9.526.419z" fill="#FFF" fill-rule="evenodd"/>
@@ -107,151 +107,216 @@
     </header>
     <main>
       <div class="new-client no-indent">
-        <div class="casl__container">
+        <div class="casl__container email-marketing">
           <div class="center-pane">
-            <ul class="breadcrumbs">
-						  <li><a href='#'>Transaction</a></li>
-						  <li class="current"><a>Add / Edit Transaction</a></li>
-						</ul>
-            <div class="indent">
-		          <div class="new-client__table-block">
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Type of Transaction</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text" onClick="onTransactionInputPopupShow(event, ['Buyer Closing', 'Seller Listing'])"/>
-		              </div>
-		            </div>
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">ML5</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text"/>
-		              </div>
-		            </div>
-		          </div>
-		          <div class="new-client__full-width-block">
-		            <label class="new-client__cell-block">Property Address</label>
-		            <textarea class="new-client__textarea" placeholder="123 Sample St, Cityname, Prov/State, Postal"></textarea>
-		          </div>
-		          <div class="new-client__table-block">
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Bedrooms</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text"/>
-		              </div>
-		            </div>
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Bathrooms</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text"/>
-		              </div>
-		            </div>
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Type of Property</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text" onClick="onTransactionInputPopupShow(event, ['Apartment', 'Condo', 'Townhouse', 'Semi-Detached', 'Bungalow', '1.5 Storey', '2 Storey', '3 Storey', 'Backsplit and Elevated Ranch'])"/>
-		              </div>
-		            </div>
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Asking Price</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text"/>
-		              </div>
-		            </div>
-		            <div class="new-client__row-block">
-		              <label class="new-client__cell-block">Status</label>
-		              <div class="new-client__cell-block">
-		                <input class="new-client__input" type="text" onChange="onSectorShow(event, '.transaction-dates-sector')" onClick="onTransactionInputPopupShow(event, ['Active', 'Conditional', 'Closing', 'Closed', 'Sold', 'Expired/Cancelled'], onSectorShow(event, '.transaction-dates-sector'))"/>
-		              </div>
-		            </div>
-	            </div>
-            </div>
-          </div>
-        </div>
+            <div class="new-client__head-text">Email Marketing</div>
+            <div>
+              <ul class="categories-bar no-indent flex-block">
+                <li class="category" id="email-link" onclick="selectCategory(event);commonOpenTab(event, 'new-client__')"><img class="center-pane" src="images/email.png"  height="20"/>Mass Email</li>
+                <li class="category" id="property-link" onclick="selectCategory(event);commonOpenTab(event, 'new-client__')"><img class="center-pane" src="images/property.png"  height="20"/>Property Match</li>
+                <li class="category" id="managelist-link" onclick="selectCategory(event);commonOpenTab(event, 'new-client__')"><img class="center-pane" src="images/managelist.png"  height="20"/>Manage List</li>
+              </ul>
 
+              <div class="new-client__tabcontent" id="email">
+                <div class="js-email-step1">
+                  <div class="indent">
+                    <div class="center-pane">
+                      <div class="email-marketing__title">Mass Email Step - 1</div>
+                    </div>
+                    <div class="new-client__full-width-block">
+                      <label>Send to List</label>
+                      <div class="flex-block">
+                        
+                        <select class="new-client__select" onchange="attachListTag(this.value, '.attached-tags');">
+                          <option>Sample List 1</option>
+                          <option>Sample List 2</option>
+                          <option>Sample List 3</option>
+                          <option>Sample List 4</option>
+                          <option>Sample List 5</option>
+                        </select>
+                        <div class="add-more-btn">+</div>
+                      </div>
+                      <div class="attached-tags"></div>
+                    </div>
+                  </div>
+                  <div class="indent">
+                    <div class="center-pane recipients-block">
+                      <label>Recipients</label>
+                      <div class="casl__button casl__blue-btn radius_30 center-pane">
+                        <div class='btn-inner-text' onClick="onAllCheckboxesSelect('.js-email-step1 .email-marketing__recipients-list')">Select All Recipients</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="email-marketing__recipients-list"></div>
+                  <div class="new-client__button new-client__green-btn" onClick="onBlockShow('.js-email-step2'); onBlockHide('.js-email-step1')">Go</div>
+                </div>
+                <div class="js-email-step2">
+                  <div class="indent">
+                    <div class="center-pane">
+                      <div class="email-marketing__title">Mass Email Step - 2</div>
+                    </div>
+                    <div class="new-client__full-width-block">
+                      <label>Subject Line</label>
+                      <div>
+                        <input class="new-client__input" type="text" placeholder="Subject"/>
+                      </div>
+                    </div>
+                    <div class="new-client__full-width-block">
+                      <label>Email Body</label>
+                      <textarea class="new-client__textarea" placeholder="Enter Mail Content"></textarea>
+                    </div>
+                  </div>
+                  <div class="new-client__button new-client__green-btn">Send</div>
+                </div>
+              </div>
+              <!-- other tab-->
+              <div class="new-client__tabcontent" id="property">
+                <div class="js-property-step1">
+                  <div class="indent">
+                    <div class="center-pane">
+                      <div class="email-marketing__title">Property Match Step - 1</div>
+                    </div>
+                    <div class="new-client__table-block">
+                      <div class="new-client__row-block">
+                        <label class="new-client__cell-block">Property Type</label>
+                        <div class="new-client__cell-block">
+                          <a class="email-marketing__link">Select Property Type ></a>
+                        </div>
+                      </div>
+                      <div class="new-client__row-block">
+                        <label class="new-client__cell-block">Bedrooms</label>
+                        <div class="new-client__cell-block">
+                          <input class="new-client__input" type="text"/>
+                        </div>
+                      </div>
+                      <div class="new-client__row-block">
+                        <label class="new-client__cell-block">Bathrooms</label>
+                        <div class="new-client__cell-block">
+                          <input class="new-client__input" type="text"/>
+                        </div>
+                      </div>
+                      <div class="new-client__row-block">
+                        <label class="new-client__cell-block">Asking Price</label>
+                        <div class="new-client__cell-block">
+                          <input class="new-client__input" type="text"/>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="new-client__bold-text">Special Features</div>
+                    <div class="" id="special-features">
+                      <div class="new-client__list-of-clickable-blocks flex-block">
+                        <div class="new-client__clickable-block">Pool</div>
+                        <div class="new-client__clickable-block">Parking</div>
+                        <div class="new-client__clickable-block">Quiet Street</div>
+                        <div class="new-client__clickable-block">In Law Suite</div>
+                        <div class="new-client__clickable-block">Large Lot</div>
+                        <div class="new-client__clickable-block">Finished Basement</div>
+                        <div class="new-client__clickable-block">Detached Garage</div>
+                        <div class="new-client__clickable-block">Attached Garage</div>
+                        <div class="new-client__clickable-block">Ravine</div>
+                        <div class="new-client__clickable-block">Double Garage</div>
+                        <div class="new-client__clickable-block">Ensuit Bath</div>
+                        <div class="new-client__clickable-block">Waterfront</div>
+                        <div class="new-client__clickable-block">Main Floor Laundry</div>
+                        <div class="new-client__clickable-block">Main Flr Fmly Room</div>
+                        <div class="new-client__clickable-block">Granite Counters</div>
+                        <div class="new-client__clickable-block">Main Floor Den</div>
+                        <div class="new-client__clickable-block">Needs Rep</div>
+                      </div>
+                    </div>
+                    <div class="new-client__bold-text">Neighbourhood</div>
+                    <div class="new-client__list-of-clickable-blocks flex-block">
+                      <div class="new-client__clickable-block">North</div>
+                      <div class="new-client__clickable-block">West</div>
+                      <div class="new-client__clickable-block">South</div>
+                      <div class="new-client__clickable-block">East</div>
+                    </div>
+                  </div>
+                  <div class="new-client__button new-client__green-btn" onClick="onBlockShow('.js-property-step2'); onBlockHide('.js-property-step1')">Send</div>
+                </div>
+                <div class="js-property-step2">
+                  <div class="indent">
+                    <div class="center-pane">
+                      <div class="email-marketing__title">Property Match Step - 2</div>
+                    </div>
+                    <div class="new-client__full-width-block">
+                      <label>Subject Line</label>
+                      <div>
+                        <input class="new-client__input" type="text" placeholder="Subject"/>
+                      </div>
+                    </div>
+                    <div class="new-client__full-width-block">
+                      <label>Email Body</label>
+                      <textarea class="new-client__textarea" placeholder="Enter Mail Content"></textarea>
+                    </div>
+                    <div class="recipients-block">
+                      <h2>Client Matches</h2>
+                      <div class="casl__button casl__blue-btn radius_30 center-pane">
+                        <div class='btn-inner-text' onClick="onAllCheckboxesSelect('.js-property-step2 .email-marketing__recipients-list')">Select All Recipients</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="email-marketing__recipients-list"></div>
+                  <div class="new-client__button new-client__green-btn">Send</div>
+                </div>
+              </div>
+              <!-- other tab-->
+              <div class="new-client__tabcontent" id="managelist">
 
-        <div class="casl__container transaction-dates-sector">
-          <div class="center-pane indent">
-              <div class="new-client__table-block">
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Financing</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
+                <div class="js-managelist-step1">
+                  <div class="center-pane indent">
+                    <div class="email-marketing__title">Email Marketing List</div>
+                    <div class="casl__button casl__blue-btn radius_30 center-pane">
+                      <div class='btn-inner-text js-add-email-list-btn'>Create List</div>
+                    </div>
+                  </div>
+
+                  <div class="email-marketing__table marketing-list-table">
+                    <div class="flex-block email-marketing__row ">
+                        <div class="email-marketing__cell">List Name</div>
+                        <div class="email-marketing__cell">Subscbs</div>
+                        <div class="email-marketing__cell">Unsubscbs</div>
+                        <div class="email-marketing__cell"></div>
+                    </div>
+                    <div class="flex-block email-marketing__row ">
+                        <div class="email-marketing__cell">Investors</div>
+                        <div class="email-marketing__cell">345</div>
+                        <div class="email-marketing__cell">12</div>
+                        <div class="email-marketing__cell">
+                          <a class='js-delete-managelist'><i class="icon icon--more"></i></a>
+                        </div>
+                    </div>
+                    <div class="flex-block email-marketing__row ">
+                        <div class="email-marketing__cell">Partners</div>
+                        <div class="email-marketing__cell">48</div>
+                        <div class="email-marketing__cell">2</div>
+                        <div class="email-marketing__cell">
+                          <a class='js-delete-managelist'><i class="icon icon--more"></i></a>
+                        </div>
+                    </div>
                   </div>
                 </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Inspection</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
+
+                <div class="js-managelist-step2">
+                  <div class="indent clearfix">
+                    <div class="email-marketing__link email-marketing__previous-step" onClick="onBlockShow('.js-managelist-step1'); onBlockHide('.js-managelist-step2')">Email Marketing List</div>
+                    <div class="email-marketing__link email-marketing__list-name">Investors</div>
                   </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Insurance</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Sale of Home</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Status Sertificate</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
+                  <div class="email-marketing__table infinite-scroll-list">
+                    <div class="flex-block email-marketing__row">
+                        <div class="email-marketing__cell">Name</div>
+                        <div class="email-marketing__cell">Email</div>
+                        <div class="email-marketing__cell">Opens</div>
+                        <div class="email-marketing__cell">Clicks</div>
+                    </div>
                   </div>
                 </div>
               </div>
+
           </div>
         </div>
-
-
-        <div class="casl__container">
-          <div class="center-pane indent">
-              <div class="new-client__table-block">
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Closes On</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Buyer</label>
-                  <div class="popup-todo__tabcontent new-client__cell-block">
-					          <div class="attached-clients"></div>
-				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-buyer'), event);" placeholder="Associate with buyer"/>
-				            <div class='popup-todo__results' id="results-buyer"></div>
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Seller</label>
-                  <div class="popup-todo__tabcontent new-client__cell-block">
-					          <div class="attached-clients"></div>
-				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-seller'), event);" placeholder="Associate with seller"/>
-				            <div class='popup-todo__results' id="results-seller"></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="indent">
-              <div class="new-client__button new-client__green-btn radius_30">Save</div>
-            </div>
-          </div>
       </div>
     </main>
-    <!--popup-->
-
-
-
-    <div class='transaction-input-popup'>
-    </div>
-
-
-
-
-    <!--menu, searchpanel, etc-->
     <div class="search-panel">
       <ul class="searchbar__tab">
         <li class="searchbar__tablinks" id="client-link" onclick="onChangeSearchbarTab(event, 'searchbar__');">Client</li>
@@ -326,32 +391,26 @@
     </div>
     <div class="cover"></div>
     
-    <div class="popup js-popup">
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#new-task-icon"></use>
-                </svg>
-            </div>
-          <div class="js-new-task center-pane">Create New Task</div>
-        </div>
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#user-icon"></use>
-                </svg>
-            </div>
-          <div class="center-pane">Create New Client</div>
-        </div>
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#user-icon"></use>
-                </svg>
-            </div>
-          <div class="center-pane">Create New Transaction</div>
-        </div>
-      <div class="popup__btn popup__red-btn js-close-popup">Cancel</div>
+
+    <div class="email-marketing-add-list-popup">
+      <div class="no-indent center-pane"> Please, enter the name for the new list
+        <input type="text"/>
+        <div class="casl__button casl__green-btn radius_30">Save</div>
+      </div>
+    </div>
+    <div class='delete-person-popup'>
+        <img src="images/delete-icon.png" height="25"/><label>Remove From List?</label>
+    </div>
+    <div class='delete-list-overlay'>
+        <div class="flex-block delete-list-overlay__content"><img src="images/delete-icon.png" height="25"/>Delete?</div>
+        <a class='js-hide-overlay'><i class="icon icon--hide"></i></a>
+    </div>
+    <div class='delete-list-popup'>
+      <div class='flex-block delete-list-popup__header'><img src="images/delete-icon.png" height="25"/><label>Delete List?</label></div>
+      <div class='clearfix'>
+        <div class='delete-popup__btn delete-btn'>Delete</div>
+        <div class='delete-popup__btn'>Cancel</div>
+      </div>
     </div>
     <div class="black-overlay"></div>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>

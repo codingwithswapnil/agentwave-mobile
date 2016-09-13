@@ -28,7 +28,8 @@ function setClickableBlocksListener() {
     for (var i = 0; i < elems.length; i++) {
       elems[i].addEventListener('click', onBlockCheck, false);
     }
-    document.getElementById('special-features-btn').click();
+    if (document.getElementById('special-features-btn'))
+      document.getElementById('special-features-btn').click();
   } catch(e) {
     console.log('setClickableBlocksListener', e);
   }
@@ -40,6 +41,14 @@ function prepareNewClientPage() {
     document.getElementById('general-link').click();
   } catch(e) {
     console.log('prepareNewClientPage', e);
+  }
+}
+
+function prepareEmailMarketingPage() {
+  try {
+    document.getElementById('email-link').click();
+  } catch(e) {
+    console.log('prepareEmailMarketingPage', e);
   }
 }
 
@@ -232,7 +241,7 @@ function attachClientById(evt) {
 
 function makeAttachedElem(parent, item) {
     var attItem = document.createElement('div');
-    attItem.className = "attached-item";
+    attItem.className = "attached-item todo-1";
     parent.appendChild(attItem);
     var nameElem = document.createElement('div');
     nameElem.className = "result-name-text";
@@ -246,7 +255,7 @@ function makeAttachedElem(parent, item) {
       address.innerHTML = 'No info';    
     attItem.appendChild(address);
     var otherinfoElem = document.createElement('div');
-    otherinfoElem.className = "result-other-info-text";
+    otherinfoElem.className = "result-other-info-text flex-block";
     var str = '<div>';
     if (item['e-mail'])
       str += item['e-mail'];
@@ -740,10 +749,9 @@ function tagSearch(event, value) {
 
 
 
-function createClientItem(listElem, index) {
-    if (clientsListInfo['info'][index] == undefined)
+function createClientItem(listElem, currentInfo, index) {
+    if (currentInfo == undefined)
       return -1;
-    var currentInfo = clientsListInfo['info'][index];
     var newItem = document.createElement('div');
     newItem.className = 'cmncting__client ';
     switch (index%3){
@@ -790,10 +798,9 @@ function createClientItem(listElem, index) {
 }
 
 
-function createLogItem(listElem, index) {
-    if (logInfo['info'][index] == undefined)
+function createLogItem(listElem, currentInfo, index) {
+    if (currentInfo == undefined)
       return -1;
-    var currentInfo = logInfo['info'][index];
     var newItem = document.createElement('div');
     newItem.className = 'log-item ';
     switch (index%3){
@@ -850,7 +857,8 @@ function createLogItem(listElem, index) {
     newItem.appendChild(text);
 }
 
-function deleteClientPopupHide() {
+function deleteClientPopupHide(e) {
+  e.stopPropagation();
   $('.black-overlay').fadeOut();
   $('.delete-person-popup').fadeOut();
   $('.black-overlay').off('click');
@@ -861,24 +869,24 @@ function onCmnctingOpen() {
 }
 
 
-function setInfiniteScrollListeners(scrollSelector, itemsCount, callback) {
+function setInfiniteScrollListeners(scrollSelector, itemsCount, callback, dataset) {
     $(scrollSelector).bind('scroll', function() {
       if($(this).scrollTop() + $(this).innerHeight() >= $(this)[0].scrollHeight){
-        infiniteScrollItems(scrollSelector, itemsCount, callback);
+        infiniteScrollItems(scrollSelector, itemsCount, callback, dataset);
       }
     });
     $(window).bind('scroll', function() {
       if($(window).scrollTop() + $(window).height() == $(document).height()) {
-        infiniteScrollItems(scrollSelector, itemsCount, callback);
+        infiniteScrollItems(scrollSelector, itemsCount, callback, dataset);
       }
     });
     $(scrollSelector).scroll();
 }
 
-function infiniteScrollItems(scrollSelector, itemsCount, callback){
+function infiniteScrollItems(scrollSelector, itemsCount, callback, dataset){
     var offset = $(scrollSelector + ' li').length;
-    for (var i = offset; i < Math.min(offset + itemsCount, logInfo['info'].length); i++) {
-      callback($(scrollSelector), i);
+    for (var i = offset; i < Math.min(offset + itemsCount, dataset.length); i++) {
+      callback($(scrollSelector), dataset[i], i);
     }
 }
 
@@ -948,6 +956,141 @@ function onSectorShow(e, blockSelector) {
     }
   }
 }
+
+function attachListTag(value, resultPaneSelector) {
+    var attachPane = $(resultPaneSelector);
+    var attItem = document.createElement('span');
+    attItem.className = "casl__tag";
+    attItem.innerText = value;
+    var image = document.createElement('img');
+    image.className = "del-tag-icon";
+    image.src = 'images/del-tag.png';
+    image.addEventListener('click', removeParent, false);
+    attItem.appendChild(image);
+    attachPane.append(attItem);
+}
+
+function makeRecipientList(resultPaneSelector) {
+    var attachPane = $(resultPaneSelector);
+    for (var i = 0; i < info['info'].length; i++) {
+      makeAttachedRecipient(attachPane, info['info'][i])
+    }
+}
+
+function makeAttachedRecipient(parent, item) {
+  for (var i = 0; i < parent.length; i++) {
+    var attItem = document.createElement('div');
+    attItem.className = "attached-item flex-block";
+    
+    var checkboxId = $(parent[i]).closest('.new-client__tabcontent')[0].id + '-id' + item['Id'];
+    var checkbox = document.createElement('input');
+    checkbox.type = "checkbox";
+    checkbox.name = $(parent[i]).closest('.new-client__tabcontent')[0].id + "-checkbox";
+    checkbox.value = item['Id'];
+    checkbox.id = checkboxId;
+
+    var label = document.createElement('label')
+    label.htmlFor = checkboxId;
+    label.innerHTML = '<span></span>'
+    label.className = "attached-item-checkbox";
+    attItem.appendChild(checkbox);
+    attItem.appendChild(label);
+    var textContainer = document.createElement('div');
+    textContainer.className = "attached-item-text";
+    attItem.appendChild(textContainer);
+    var nameElem = document.createElement('div');
+    nameElem.className = "result-name-text";
+    nameElem.innerHTML = item['Name'];
+    textContainer.appendChild(nameElem);
+    var otherinfoElem = document.createElement('div');
+    otherinfoElem.className = "result-other-info-text flex-block";
+    var str = '<div>';
+    if (item['e-mail'])
+      str += item['e-mail'];
+    else
+      str += 'No info';
+
+    str += '</div><div>';
+    if (item['Phone number'])
+      str += item['Phone number'];
+    else
+      str += 'No info';
+    str += '</div>';
+    otherinfoElem.innerHTML = str;
+    //otherinfoElem.innerHTML = item['e-mail'] + ' ' + item['Phone number'];
+    textContainer.appendChild(otherinfoElem);
+    $(parent[i]).append(attItem);
+  }
+}
+
+function onAllCheckboxesSelect(selector) {
+    $(selector).find('input[type="checkbox"]').prop('checked', true);
+}
+
+function onBlockShow(blockSelector) {
+    if ($(blockSelector) != []) {
+      $(blockSelector).fadeIn();
+    }
+}
+
+function onBlockHide(blockSelector) {
+    if ($(blockSelector) != []) {
+      $(blockSelector).fadeOut();
+    }
+}
+
+function onEmailListItemDelete(e) {
+  e.stopPropagation();
+  var popup = $('.delete-person-popup');
+  var block = $(e.target.closest('.email-marketing__row'));
+  block.append(popup);
+  popup.fadeIn().css('display', 'flex');
+
+  $(popup).on('click', deleteClientPopupHide);
+
+  $(document).one('click', function(e) {
+      popup.fadeOut();
+  });
+
+}
+
+function createEmailListItem(parent, currentInfo) {
+    if (currentInfo == undefined)
+      return -1;
+    var row = document.createElement('li');
+    row.className = 'flex-block email-marketing__row';
+
+    var cell = document.createElement('div');
+    cell.className = 'email-marketing__cell';
+    cell.innerHTML = currentInfo['Name'];
+    row.appendChild(cell);
+    cell = document.createElement('div');
+    cell.className = 'email-marketing__cell';
+    cell.innerHTML = currentInfo['Email'];
+    row.appendChild(cell);
+    cell = document.createElement('div');
+    cell.className = 'email-marketing__cell';
+    cell.innerHTML = currentInfo['Opens'];
+    row.appendChild(cell);
+    cell = document.createElement('div');
+    cell.className = 'email-marketing__cell';
+    cell.innerHTML = currentInfo['Clicks'];
+    row.appendChild(cell);
+
+    parent.append(row);
+    $(row).on('click', onEmailListItemDelete);
+}
+
+function fillEmailPersonsList() {
+    var block = $('.js-managelist-step2 .email-marketing__table');
+    if (block == []) {
+      return;
+    }
+    setInfiniteScrollListeners('.js-managelist-step2 .email-marketing__table', 10, createEmailListItem, personsList['info']);
+    
+    //$('.js-managelist-step2 .email-marketing__row').on('click', onEmailListItemDelete);
+}
+
 
 (function($) {
 
@@ -1146,69 +1289,439 @@ function onSectorShow(e, blockSelector) {
 
     $('.js-delete-button').on('click', onDeleteClientClick);
 
-    /*
-    $('.js-delete-button').on('click', function(e) {
-      $('.action-with-person-popup').fadeOut();
-      $('.delete-person-popup').fadeIn();
-      $('.black-overlay').on('click', deleteClientPopupHide);
-      $('.delete-person-popup__btn').on('click', deleteClientPopupHide);
-    });$('.cmncting__button').on('click', function(e) {
-      e.preventDefault();
-      $(document).off('click');
+    //in table with marketing list click on arrow for deleting
+    $('.email-marketing__row .js-delete-managelist').on('click', function(e) {
+      e.stopPropagation();
+      var popup = $('.delete-list-overlay');
+      var block = $(e.target.closest('.email-marketing__row'));
+      block.append(popup);
+      popup.fadeIn().css('display', 'flex');
 
-      var btnClassName = this.children[0].className;
-
-      $(document).on('click', function(e) {
-        if ($(e.target).closest('.js-edit-delete').length || $(e.target).is('.js-edit-delete')) {
-
-          if (btnClassName.indexOf('edit') != -1) {
-            window.location = 'contact-new.html';
-          } else {
-            $('.black-overlay').fadeIn();
-            $('.delete-person-popup').fadeIn();
-            $('.black-overlay').on('click', deleteClientPopupHide);
-            $('.delete-person-popup__btn').on('click', deleteClientPopupHide);
-          }
-          $(document).off('click');
-        } else {
-          if (!$(e.target).closest('.cmncting__button').length && !$(e.target).is('.cmncting__button')) {
-            $(document).off('click');
-          }
-        }
+      //show red popup for deleting list
+      $(popup).on('click', function(e) {
+        e.stopPropagation();
+        popup.fadeOut();
+        $('.black-overlay').fadeIn();
+        $('.delete-list-popup').fadeIn();
+        $('.black-overlay').on('click', function(e) {
+          e.stopPropagation();
+          $('.delete-list-popup').fadeOut();
+          $('.black-overlay').fadeOut();
+          $('.black-overlay').off('click');
+        })
       });
 
-    });//$('.cmncting__button').on('click') ended*/
-    if ($('.new-client__clickable-block')) {
+      //hide overlay
+      $(document).one('click', function(e) {
+        e.stopPropagation(e);
+        popup.fadeOut();
+      });
+    })
+    //dont want delete list item, click on arrow hide
+    $('.js-hide-overlay').on('click', function(e) {
+      e.stopPropagation();
+      $('.delete-list-overlay').fadeOut();
+    })
+    //in red popup for list deleting click on buttons
+    $('.delete-popup__btn').on('click', function(e) {
+      e.stopPropagation();
+      $('.delete-list-popup').fadeOut();
+      $('.black-overlay').fadeOut();
+    })
+
+    //show next step in list marketing
+    $('.marketing-list-table .email-marketing__row:not(:first-child)').on('click', function(e) {
+      var listname = $(e.target).closest('.email-marketing__row').find('.email-marketing__cell:first-child').text();
+      $('.email-marketing__list-name').text(listname);
+      onBlockShow('.js-managelist-step2');
+      onBlockHide('.js-managelist-step1');
+    })
+
+    //add new list
+    $('.js-add-email-list-btn').on('click', function(e) {
+      e.stopPropagation();
+      $('.black-overlay').fadeIn();
+      $('.email-marketing-add-list-popup').fadeIn();
+      $('.email-marketing-add-list-popup input').on('click', function(e) {
+          e.stopPropagation();
+      });
+      $(document).one('click', function(e) {
+          e.stopPropagation();
+          $('.email-marketing-add-list-popup').fadeOut();
+          $('.black-overlay').fadeOut();
+      });
+    })
+    if ($('.new-client__clickable-block') != []) {
       setClickableBlocksListener();
     }
 
 
     if ($('.casl__tabcontent#log')) {
-      setInfiniteScrollListeners('#log .infinite-scroll-list', 4, createLogItem);
+      setInfiniteScrollListeners('#log .infinite-scroll-list', 4, createLogItem, logInfo['info']);
     }
 
     if ($('.cmncting')) {
-      setInfiniteScrollListeners('.cmncting .infinite-scroll-list', 10, createClientItem);
+      setInfiniteScrollListeners('.cmncting .infinite-scroll-list', 10, createClientItem, clientsListInfo['info']);
     }
 
-    /*if ($( "#new-client__datepicker" ).length) {
-      $( "#new-client__datepicker" ).datepicker({
-        changeYear: true,
-        beforeShow: function (textbox, instance) {
-          setTimeout(function() {
-            this.css({left: ($(window).width()-this.width())/2 + 'px'})
-          }.bind(instance.dpDiv), 50);
-        }
-      });
-      $("#new-client__datepicker").on('focus',function(){
-        $(this).trigger('blur');
-      });
-    }*/
 }).scroll();
 
 })(jQuery);
 
+var emailMarketingList = {
+  'info': [
+    {
+      'List Name': 'Investors',
+      'Subscbs': 345,
+      'Unsubscbs': 12
+    },{
+      'List Name': 'Partners',
+      'Subscbs': 48,
+      'Unsubscbs': 2
+    }
+  ]
+}
 
+var personsList = {
+  'info': [
+    {
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    },{
+      'Name': 'Jason Seib',
+      'Email': 'jasonseib@gmail.com',
+      'Opens': '12',
+      'Clicks': '12'
+    },{
+      'Name': 'Adeline Emily',
+      'Email': 'a_emily@gmail.com',
+      'Opens': '322',
+      'Clicks': '2'
+    },{
+      'Name': 'Evangeline Pieters',
+      'Email': 'e_pieters@gmail.com',
+      'Opens': '32',
+      'Clicks': '24'
+    }
+  ]
+}
 
 
 var logInfo = {

@@ -1166,13 +1166,13 @@ option {
 
 .new-client__select, .ui-datepicker-year {
     width: calc(100% - 32px);
-    padding: 5px 25px 5px 5px;
+    padding: 5px 35px 5px 5px;
     direction: rtl !important;
         text-align-last: right;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    background: url("../images/arrow 2.png") no-repeat right white !important;
+    background: url("../images/arrow 2.png") no-repeat calc(100% - 10px) white !important;
     background-size: 15px 15px !important;
     background-position: 98% 50%;
 }
@@ -1252,6 +1252,14 @@ ul.categories-bar li {
   -webkit-transition: 0.3s;
   transition: 0.3s;
 }
+.email-marketing ul li {
+  color: #939393;
+  background-color: #F7F7F7;
+}
+.email-marketing ul li:not(:last-child) {
+  border-right: 1px solid white;
+}
+    
 ul.categories-bar li.no-cat {
   color: #cf4b8e;
 }
@@ -1592,8 +1600,12 @@ ul.new-client__tab li.active {
   background-image: url("../images/right-arrow.png");
   margin: 0;
 }
+.icon--hide {
+  background-image: url("../images/left-arrow-white.png");
+  margin: 0;
+}
 
-.delete-person-popup {
+.delete-person-popup, .delete-list-overlay, .email-marketing-add-list-popup {
   position: absolute;
   padding: 10px;
   z-index: 1002;
@@ -2038,12 +2050,20 @@ select > option:hover {
   text-align: justify;
   word-wrap: break-word;
   color: #f3be20;
+  justify-content: space-between;
 }
-.result-other-info-text:after {
+.result-other-info-text div{
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.result-other-info-text div:not(:last-child){
+  margin-right: 20px;
+}
+/*.result-other-info-text:after {
   content: "";
   display: inline-block;
   width: 100%;
-}
+}*/
 .searchbar__result-name-text {
   font-size: 17px;
   font-family: "Open Sans";
@@ -2062,15 +2082,15 @@ select > option:hover {
   font-weight: 600;
 }
 .attached-item {
-  background-color: #f6f6f6;
-  border-left: 5px solid #7eb5d3;
   margin-bottom: 10px;
   width: calc(100% -5px);
-  border-bottom: 1px solid #ececec;
   padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
+
   font-size: 15px;
+  background-color: #f6f6f6;
+  border-bottom: 1px solid #ececec;
 }
 .popup-todo__results {
   background-color: #e1e1e1;
@@ -2614,138 +2634,256 @@ ul.popup-todo__tab li label {
   border-bottom: 2px solid #E6E6E6;
 }
 
-ul.infinite-scroll-list {
+.infinite-scroll-list {
     max-height: 1000px;
     overflow: auto;
     -webkit-padding-start: 0;
     padding: 0px;
     list-style-type: none;
 }
-
-/*datepicker styles
-.new-client__datepicker {
-  position: relative;
-}
-.ui-datepicker {
-  width: auto;
-  height: auto;
-  margin: 5px 0 0 0;
-  font: 13pt 'Open sans', sans-serif;
-  border: 1px solid #BBBBBB;
-  background-color: white;
-}
-.ui-datepicker a {
-  text-decoration: none;
-}
-.ui-datepicker table {
-  width: 300px;
-  margin: 0 auto;
+.infinite-scroll-list li{
+    list-style-type: none;
 }
 
-.ui-datepicker-header {
-  padding: 0 10px 10px 10px;
-  background: #007AC3;
-  color: white;
-  line-height: 30px;
-  border-top: 1px solid #888888;
-}
-
-.ui-datepicker thead {
-  background-color: #f7f7f7;
-  background-image: -moz-linear-gradient(top,  #f7f7f7 0%, #f1f1f1 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f7f7f7), color-stop(100%,#f1f1f1));
-  background-image: -webkit-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: -o-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: -ms-linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  background-image: linear-gradient(top,  #f7f7f7 0%,#f1f1f1 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f7f7f7', endColorstr='#f1f1f1',GradientType=0 );
-  border-bottom: 1px solid #bbb;
-}
-.ui-datepicker-prev {
-  float: left;
-  background-position: center -30px;
-}
-.ui-datepicker-next {
-  float: right;
-  background-position: center 0px;
-}
-.ui-datepicker-prev, .ui-datepicker-next {
-  display: inline-block;
+.email-marketing input {
   height: 30px;
+  padding: 5px;
+  border-radius: 3px;
+  text-align: left;
+}
+.email-marketing .new-client__clickable-block {
+    min-height: 30px;
+    border-radius: 3px;
+}
+
+.email-marketing label {
+  margin: 10px 5px;
+}
+.email-marketing textarea {
+    height: 100px;
+    border-radius: 3px;
+}
+
+.email-marketing .new-client__full-width-block {
+  margin-top: 20px;
+}
+
+.email-marketing__title {
+  font-size: 25px;
+  font-family: "Open Sans";
+  color: rgb(20, 191, 243);
+  text-align: center;
+}
+.email-marketing__link {
+  font-size: 18px;
+  font-family: "Open Sans";
+  color: rgb(20, 191, 243);
   text-align: center;
   cursor: pointer;
+}
+
+.add-more-btn {
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+
+    text-align: center;
+    font-size: 30px;
+    line-height: 25px;
+    color: #888888;
+
+    border: 1px solid #13bef3;
+    border-radius: 3px;
+}
+
+.email-marketing .casl__tag {
+  padding: 10px;
+  padding-right: 0px;
+  margin: 5px;
+  margin-left: 0px;
+
+  background-color: #99CDFF;
+  color: white;
+  border-radius: 3px;
+}
+.email-marketing .casl__tag .del-tag-icon {
+  margin: 0 10px;
+}
+
+.email-marketing .new-client__select {
+  direction: ltr !important;
+  text-align-last: left;
+}
+
+.email-marketing .casl__blue-btn {
+  margin: 10px 20px;
+}
+.attached-item-text {
+  width: 100%;
+}
+.attached-item-checkbox {
+  width: 30px;
+}
+.recipients-block {
+  text-align: left;
+  margin-top: 10px;
+}
+
+.center-pane.recipients-block {
+  text-align: center;
+  margin-top: 15px;
+}
+.email-marketing .attached-item .result-name-text{
+  margin-bottom: 15px;
+  font-weight: 300;
+}
+.email-marketing .attached-item {
+  padding: 10px;
+  margin: 0px;
+  align-items: center;
+}
+
+.js-email-step2, .js-property-step2, .js-managelist-step2 {
+  display: none;
+}
+
+.email-marketing__table {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 30px;
+
+  border: none;
+  background-color: white;
+  border-spacing: 0px;
+  
+}
+.email-marketing__table .email-marketing__row:first-child{
+  font-weight: 600;
+  background-color: #fff;
+}
+.email-marketing__table .email-marketing__row {
+  justify-content: space-between;
+  position: relative;
+  background-color: #FBFBFB;
+}
+.email-marketing__table .email-marketing__row:nth-child(2n) {
+  background-color: #F1F1F1;
+}
+
+.email-marketing__table .email-marketing__cell{
+  padding: 10px 5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  flex: 1;
+}
+.email-marketing__table .email-marketing__row .email-marketing__cell:first-child{
+  padding-left: 10px;
+}
+.email-marketing__table .email-marketing__cell:nth-child(4) {
+  flex: 0.5;
+}
+.email-marketing__table .email-marketing__cell:nth-child(3) {
+  flex: 0.5;
+}
+.email-marketing .delete-person-popup, .email-marketing  .delete-list-overlay  {
+  justify-content: center;
+  align-items: center;
+  background-color: #DD5269;
+  color: white;
+}
+
+.email-marketing .delete-person-popup label{
+  width: auto;
+}
+
+.delete-list-popup {
+  position: fixed;
+  top: 25%;
+  left: 12px;
+  z-index: 1002;
+
+  display: none;
+  width: calc(100% - 25px);
+  height: auto;
+
+  border-radius: 3px;
+  background-color: #fff;
   overflow: hidden;
 }
 
-.ui-datepicker-title {
+.delete-list-popup .delete-list-popup__header label{
+  width: auto;
+}
+.delete-list-popup .delete-list-popup__header {
+  padding: 5px;
+  height: auto;
+  margin-bottom: 20px;
+  justify-content: center;
+  align-items: center;
+
+  color: white;
+  background-color: #D11E3C;
+}
+.delete-popup__btn {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding: 10px;
+  height: auto;
+  width: 45%;
+
+  color: #D11E3C;
   text-align: center;
+  border: 2px solid #D11E3C;
+  border-radius: 3px;
+  background-color: white;
 }
 
-.ui-datepicker th {
-  text-transform: uppercase;
-  font-size: 6pt;
-  padding: 5px 0;
-  color: #666666;
-  text-shadow: 1px 0px 0px #fff;
-  filter: dropshadow(color=#fff, offx=1, offy=0);
+.delete-btn {
+  float: left;
+  margin-right: 0px;
+  margin-left: 10px;
+  color: white;
+  background-color: #D11E3C;
 }
 
-.ui-datepicker tbody td {
-  padding: 0;
-  border-right: 1px solid #bbb;
+.delete-list-overlay__content {
+  flex: 1;
+  justify-content: center;
+  align-items: center;
 }
 
-.ui-datepicker tbody td:last-child {
-  border-right: 0px;
-}
-.ui-datepicker tbody tr {
-  border-bottom: 1px solid #bbb;
-}
-.ui-datepicker tbody tr:last-child {
-  border-bottom: 0px;
+.delete-list-overlay__content img{
+  margin-right: 10px;
 }
 
-.ui-datepicker td span, .ui-datepicker td a {
-  display: inline-block;
-  font-weight: bold;
-  text-align: center;
-  width: 32px;
-  height: 32px;
-  line-height: 32px;
-  color: #666666;
-  text-shadow: 1px 1px 0px #fff;
-  filter: dropshadow(color=#fff, offx=1, offy=1);
+.email-marketing__list-name {
+  float: right;
 }
-.ui-datepicker-calendar .ui-state-default {
-  background: #ededed;
-  background: -moz-linear-gradient(top,  #ededed 0%, #dedede 100%);
-  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#dedede));
-  background: -webkit-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -o-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: -ms-linear-gradient(top,  #ededed 0%,#dedede 100%);
-  background: linear-gradient(top,  #ededed 0%,#dedede 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#dedede',GradientType=0 );
-  border: 1px solid rgba(250, 250, 250, .5);
+
+.clearfix:after {
+  clear: both;
 }
-.ui-datepicker-unselectable .ui-state-default {
-  background: #f4f4f4;
-  color: #b4b3b3;
+
+.email-marketing-add-list-popup {
+  top: 25%;
+  left: 12px;
+  width: calc(100% - 25px);
+  height: auto;
+
+  border-radius: 3px;
+  overflow: hidden;
 }
-.ui-datepicker-calendar .ui-state-active {
-  background: #6eafbf;
-  -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  -moz-box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  box-shadow: inset 0px 0px 10px 0px rgba(0, 0, 0, .1);
-  color: #e0e0e0;
-  text-shadow: 0px 1px 0px #4d7a85;
-  filter: dropshadow(color=#4d7a85, offx=0, offy=1);
-  border: 1px solid #55838f;
-  position: relative;
-  margin: -1px;
+
+.email-marketing__previous-step {
+    width: 50%;
+    float: left;
+    word-break: break-word;
 }
-.ui-datepicker-calendar .ui-state-hover {
-  background: #f7f7f7;
+
+.email-marketing-add-list-popup input {
+  margin: 20px auto;
+  padding: 5px;
 }
-.ui-datepicker-year {
-  text-align-last: center;
-}*/

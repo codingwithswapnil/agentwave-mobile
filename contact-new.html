@@ -44,7 +44,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
   </head>
-  <body onload="prepareNewClientPage();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+  <body onload="openTab('general-link'); prepareNewClientPage();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
 <symbol id="back-icon" viewBox="0 0 6 10"><title>close-icon</title><path d="M1.237 4.35L5.582 0 6 .419 1.656 4.77 6 9.12l-.418.42-4.345-4.352-.418-.418z" fill="#FFF" fill-rule="evenodd"/>
 </symbol>
 <symbol id="close-icon" viewBox="0 0 10 10"><title>close-icon</title><path d="M9.107 0L4.763 4.35.418 0 0 .419 4.344 4.77 0 9.12l.418.42 4.345-4.352 4.344 4.35.42-.418L5.18 4.77 9.526.419z" fill="#FFF" fill-rule="evenodd"/>
@@ -99,7 +99,7 @@
         <svg viewBox="0 0 339 91">
           <use xlink:href="#logo"></use>
         </svg></a>
-      <button class="search-button js-search-toggle" type="button" onclick="showItem('search-panel'); openClient();">
+      <button class="search-button js-search-toggle" type="button" onclick="showItem('search-panel'); openTab('client-link');">
         <svg viewBox="0 0 19 19">
           <use xlink:href="#search-icon"></use>
         </svg>

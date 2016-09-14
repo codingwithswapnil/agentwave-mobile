@@ -44,7 +44,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
   </head>
-  <body onload="prepareEmailMarketingPage(); makeRecipientList('.email-marketing__recipients-list');fillEmailPersonsList();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+  <body onload="openTab('email-link'); makeRecipientList('.email-marketing__recipients-list');fillEmailPersonsList();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
 <symbol id="back-icon" viewBox="0 0 6 10"><title>close-icon</title><path d="M1.237 4.35L5.582 0 6 .419 1.656 4.77 6 9.12l-.418.42-4.345-4.352-.418-.418z" fill="#FFF" fill-rule="evenodd"/>
 </symbol>
 <symbol id="close-icon" viewBox="0 0 10 10"><title>close-icon</title><path d="M9.107 0L4.763 4.35.418 0 0 .419 4.344 4.77 0 9.12l.418.42 4.345-4.352 4.344 4.35.42-.418L5.18 4.77 9.526.419z" fill="#FFF" fill-rule="evenodd"/>
@@ -99,7 +99,7 @@
         <svg viewBox="0 0 339 91">
           <use xlink:href="#logo"></use>
         </svg></a>
-      <button class="search-button js-search-toggle" type="button" onclick="showItem('search-panel'); openClient();">
+      <button class="search-button js-search-toggle" type="button" onclick="showItem('search-panel'); openTab('client-link');">
         <svg viewBox="0 0 19 19">
           <use xlink:href="#search-icon"></use>
         </svg>
@@ -142,7 +142,7 @@
                   <div class="indent">
                     <div class="center-pane recipients-block">
                       <label>Recipients</label>
-                      <div class="casl__button casl__blue-btn radius_30 center-pane">
+                      <div class="casl__button light-blue-btn radius_30 center-pane">
                         <div class='btn-inner-text' onClick="onAllCheckboxesSelect('.js-email-step1 .email-marketing__recipients-list')">Select All Recipients</div>
                       </div>
                     </div>
@@ -251,7 +251,7 @@
                     </div>
                     <div class="recipients-block">
                       <h2>Client Matches</h2>
-                      <div class="casl__button casl__blue-btn radius_30 center-pane">
+                      <div class="casl__button light-blue-btn radius_30 center-pane">
                         <div class='btn-inner-text' onClick="onAllCheckboxesSelect('.js-property-step2 .email-marketing__recipients-list')">Select All Recipients</div>
                       </div>
                     </div>
@@ -266,7 +266,7 @@
                 <div class="js-managelist-step1">
                   <div class="center-pane indent">
                     <div class="email-marketing__title">Email Marketing List</div>
-                    <div class="casl__button casl__blue-btn radius_30 center-pane">
+                    <div class="casl__button light-blue-btn radius_30 center-pane">
                       <div class='btn-inner-text js-add-email-list-btn'>Create List</div>
                     </div>
                   </div>

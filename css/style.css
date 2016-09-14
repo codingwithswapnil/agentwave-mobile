@@ -465,31 +465,35 @@ h2 {
   font-weight: 300;
   margin: 0;
 }
-ul.breadcrumbs {
+.breadcrumb {
+    width: 100%;
     padding: 16px 0 10px 10px;
+    margin-bottom: 0px;
+    list-style: none;
+    background-color: transparent;
+    border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-ul.breadcrumbs li a {
+.breadcrumb li {
+    display: inline;
+}
+
+.breadcrumb > li + li:before {
+  content: ">";
+  padding: 0 5px;
+  color: black;
+  font-weight: 700;
+}
+
+.breadcrumb li a {
     font-weight: 700;
     font-size: 16px;
     text-decoration: none;
     color: black;
 }
-ul.breadcrumbs li {
-    margin: 0;
-    float: left;
-    list-style: none;
-}
-ul.breadcrumbs li:first-child:before {
-    content: " ";
-    margin: 0;
-}
-ul.breadcrumbs li:before {
-    content: ">";
-    color: black;
-    font-weight: 700;
-    font-size: 16px;
-    margin: 0 10px;
-}
+
 .btn {
   display: inline-block;
   text-decoration: none;
@@ -795,7 +799,7 @@ ul.casl__tab li.active {
 .person-item {
   margin: 5px 8px;
   padding: 5px;
-  border-left: 5px solid #d8d8d8;
+  border-left: 5px solid transparent;
   vertical-align: middle;
   background-color: #f6f6f6;
   height: auto;
@@ -880,7 +884,7 @@ ul.casl__tab li.active {
   display: inline-block;
   text-align: right;
   font-size: 15px;
-  width: 60%;
+  width: 50%;
   word-wrap: break-word;
 }
 .select-consent {
@@ -1873,13 +1877,18 @@ header use {
   fill: inherit;
 }
 .btn--new-todo {
-  width: 100%;
-  background-color: #2167a1;
-  color: #fff;
-  height: 40px;
   position: fixed;
   left: 0;
   bottom: 0;
+
+  width: 100%;
+  padding: 8px;
+  height: 40px;
+
+  text-align: center;
+  text-decoration: none;
+  background-color: #2167a1;
+  color: #fff;
 }
 .popup-todo {
   max-height: calc(100% - 50px);
@@ -2715,7 +2724,7 @@ ul.popup-todo__tab li label {
   text-align-last: left;
 }
 
-.email-marketing .casl__blue-btn {
+.email-marketing .light-blue-btn {
   margin: 10px 20px;
 }
 .attached-item-text {
@@ -2886,4 +2895,178 @@ ul.popup-todo__tab li label {
 .email-marketing-add-list-popup input {
   margin: 20px auto;
   padding: 5px;
+}
+
+
+.transaction-popup__button {
+  display: flex;
+  -webkit-box-orient: vertical; 
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 50%;
+  padding: 20px 0;
+
+  text-align: center;
+  color: #fff;
+  background: #c6c6c6;
+}
+
+.transaction-popup__button.delete-button {
+  background: #db5168;
+}
+
+.transactions-list {
+  position: relative;
+}
+.transactions-list .action-with-person-popup {
+    top: 0px;
+    right: 0px;
+    width: 30%;
+    height: auto;
+    margin: 5px 0;
+    flex-direction: column;
+}
+.transaction-popup__button{
+    width: 100%;
+    height: 50%;
+}
+.transaction-item {
+    margin: 5px 8px;
+
+    vertical-align: middle;
+    background-color: #f6f6f6;
+    height: auto;
+}
+
+.transaction-item.slided {
+    transform: translateX(-30%);
+    margin-right: 0px;
+}
+
+.transaction-item-content {
+  padding: 5px;
+}
+.transaction-price-block {
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #f39420;
+  color: #fff;
+  font-weight: 600;
+}
+.transaction-price-block div:last-child {
+  text-align: right;
+}
+.transaction-price-block div:last-child {
+  text-align: right;
+}
+.transaction-price-block div {
+  flex: 1;
+}
+.transaction-price-block img {
+  flex: 0;
+  margin-right: 5px;
+}
+
+.transaction-profile .transaction-price-block div:last-child {
+  flex: 2;
+}
+
+.transaction-item-content .history-text{
+    display: inline-block;
+    text-align: right;
+    font-size: 15px;
+    width: 30%;
+    word-wrap: break-word;
+}
+
+.transaction-profile__big-image {
+  margin-top: 10px;
+  text-align: center;
+}
+.transaction-profile__big-image img {
+  width: 100%;
+  max-width: 400px;
+}
+.transaction-profile__info .new-client__row-block .new-client__cell-block:last-child {
+  text-align: right;
+}
+
+
+.light-blue-btn {
+    position: relative;
+    border: 1px solid #00BFF3;
+    color: #00BFF3;
+    padding: 5px 0;
+    width: auto;
+}
+.transaction-profile__info .new-client__cell-block .light-blue-btn{
+    width: auto;
+    display: inline-block;
+    margin-left: auto;
+    padding: 0 10px;
+}
+
+.transaction-profile__info .new-client__cell-block .light-blue-btn .btn-inner-text{
+    width: auto;
+    display: inline-block;
+    color: #00BFF3;
+    text-decoration: none;
+}
+
+.light-blue-btn input[type="file"] {
+  width: 100%;
+  opacity: 0;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+.forward-green-btn {
+  padding: 0;
+  width: auto;
+  margin: 10px;
+
+  color: #45B31C;
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.transaction-profile__documents-container .item-header-text img {
+  margin-right: 10px;
+}
+
+.forward-green-btn img {
+  margin-left: 10px;
+}
+
+.transaction-profile__documents-container {
+  margin-top: 15px;
+}
+
+.transaction-profile__documents-container .log-item{
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.transaction__search-input {
+    width: 100%;
+    background: #d7d7d7;
+    border: none;
+    outline: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    color: #999999;
+    height: 30px;
+    padding-left: 40px;
+    background: url("../images/search-icon.png") no-repeat 5px #d7d7d7;
+    background-size: 20px;
+}
+
+.forward-btn-container {
+  text-align: center;
 }

@@ -44,7 +44,7 @@
     <link href="css/style.css" rel="stylesheet">
     <script src="js/app.js"></script>
   </head>
-  <body onload="openTab('client-link'); onCmnctingOpen();"><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
+  <body><svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
 <symbol id="back-icon" viewBox="0 0 6 10"><title>close-icon</title><path d="M1.237 4.35L5.582 0 6 .419 1.656 4.77 6 9.12l-.418.42-4.345-4.352-.418-.418z" fill="#FFF" fill-rule="evenodd"/>
 </symbol>
 <symbol id="close-icon" viewBox="0 0 10 10"><title>close-icon</title><path d="M9.107 0L4.763 4.35.418 0 0 .419 4.344 4.77 0 9.12l.418.42 4.345-4.352 4.344 4.35.42-.418L5.18 4.77 9.526.419z" fill="#FFF" fill-rule="evenodd"/>
@@ -105,97 +105,94 @@
         </svg>
       </button>
     </header>
-        <div class="client-main__title">
-            <h1>Contacts Main</h1>
-        </div>
     <main>
-      <div class="contact">
-        <a class="btn btn--round" href="contact-new.html"><span class="btn__text">Create New</span><span class="btn__icon">+</span></a>
-        <div class="contact__search">
-          <input class="contact__search-input" type="text" id="contact-search" onkeyup="startFind(this.value);" placeholder="Search"/>
-          <svg class="search-button--clients" width="30" height="30" fill="#d7d7d7">
-            <use xlink:href="#search-icon"></use>
-          </svg>
-        </div>
-        <div class="contact__filter">
-          <button class="btn btn--filter js-show-contacts-filter"><span class="btn__text">Filter Options</span><span class="btn__icon">
-              <svg width="12" height="6" stroke="#f3027f">
-                <use xlink:href="#dropdown-arrow"></use>
-              </svg></span></button>
-          <div class="filter-options">
-            <table class="filter-options__table">
-              <tr>
-                <td>Tags</td>
-                <td>
-                  <input type="text" id='tags-search-input' onkeyup='tagSearch(event, this.value);'/>
-                </td>
-              </tr>
-              <tr>
-                <td></td>
-                <td>
-                  <div class="tags-area"></div>
-                </td>
-              </tr>
-              <tr>
-                <td>Min.Price</td>
-                <td>
-                  <input type="text"/>
-                </td>
-              </tr>
-              <tr>
-                <td>Max.Price</td>
-                <td>
-                  <input type="text"/>
-                </td>
-              </tr>
-            </table>
+      <div class="transaction-profile new-client no-indent">
+        <div class="casl__container">
+          <div class="center-pane">
+            <ol class="breadcrumb">
+                <li><a href="transaction.html">Transaction</a></li>
+                <li class="active"><a>34 Westboro St. Milton Town,Ontario L9T7N9</a></li>
+            </ol>
+            <div class="indent">
+                <div class='transaction-profile__big-image'>
+                  <img src="images/h2.jpg">
+                </div>
+    	          <div class="new-client__table-block transaction-profile__info">
+    	            <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Bedrooms</label>
+                      <label class="new-client__cell-block">4</label>
+    	            </div>
+    	            <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Bathrooms</label>
+                      <label class="new-client__cell-block">3</label>
+    	            </div>
+    	            <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Type</label>
+                      <label class="new-client__cell-block">Bungalow</label>
+    	            </div>
+                  <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Asking Price</label>
+                      <label class="new-client__cell-block">$499,999</label>
+                  </div>
+                  <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Selling Price</label>
+                      <label class="new-client__cell-block">$499,999</label>
+                  </div>
+    	            <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Seller</label>
+                      <div class="new-client__cell-block">
+                        <div class="casl__button light-blue-btn radius_30">
+                          <a href='#' class='btn-inner-text'>Jason Seib</a>
+                        </div>
+                      </div>
+    	            </div>
+                </div>
+                <!--table ends-->
+            </div>
+            <div class="transaction-price-block flex-block">
+              <img src="images/active-icon.png" height="25">
+              <div>Active</div>
+              <div>Exp Apr, 30th 2015</div>
+            </div>
           </div>
         </div>
-        <div class="contact__tabs">
-          <ul class="hor-tabs">
-            <li><a href="#" class="js-tab" data-tab="all">All</a></li>
-            <li><a href="#" class="js-tab" data-tab="open">Open</a></li>
-            <li><a href="#" class="js-tab" data-tab="closed">Closed</a></li>
-            <li><a href="#" class="js-tab" data-tab="cmncting">Cmncting</a></li>
-            <li><a href="#" data-tab="follow-up" class="js-tab">Follow up</a></li>
-          </ul>
-          <div class="tabs-content">
-            <div class="all">
-                All content
-            </div>
-            <div class="open">
-                Open content
-            </div>
-            <div class="closed">
-                Closed content
-            </div>
-            <div class="cmncting">
-              <div class="cmncting__clients">
 
-              <ul class="infinite-scroll-list">
-              </ul>
+
+        <div class="casl__container">
+          <div class="center-pane indent">
+            <div class="new-client__head-text">Transaction Main</div>
+            <div class="casl__button light-blue-btn radius_30">
+              <div class='btn-inner-text'>Add New Document <input type='file'/></div>
             </div>
-            <div class="follow-up">
-                Follow up content
+            <div class="transaction-profile__documents-container">
+              <div class="log-item  blue-border">
+                <div class="item-header-text"><img src="images/contract-icon.png" height="20">Contract</div>
+                <div class="item-info-text">Final listing agreement with <strong>Pamela D.</strong></div>
+                <div class='forward-btn-container'>
+                  <a class="casl__button forward-green-btn">
+                    Forward<img src="images/forward-icon.png" height="15">
+                  </a>
+                </div>
+              </div>
+              <div class="log-item  pink-border">
+                <div class="item-header-text"><img src="images/contract-icon.png" height="20">Contract</div>
+                <div class="item-info-text">Final listing agreement with <strong>Hailey Shine</strong></div>
+                <div class='forward-btn-container'>
+                  <a class="casl__button forward-green-btn">
+                    Forward<img src="images/forward-icon.png" height="15">
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </main>
+    <!--popup-->
 
-    <div class='delete-person-popup'>
-      Do you really want to delete this person?<br/>
-      <div class="delete-person-popup__btn del">Yes</div>
-      <div class="delete-person-popup__btn">No</div>
-    </div>
 
-    <div class='action-with-person-popup cmncting__buttons'>
-        <div class="cmncting__button js-edit-button"><span class=""><i class="icon icon--edit"></i>Edit</span>
-        </div>
-        <div class="cmncting__button js-delete-button"><span class=""><i class="icon icon--delete"></i>Delete</span>
-        </div>
-    </div>
 
+    <!--menu, searchpanel, etc-->
     <div class="search-panel">
       <ul class="searchbar__tab">
         <li class="searchbar__tablinks" id="client-link" onclick="onChangeSearchbarTab(event, 'searchbar__');">Client</li>
@@ -269,33 +266,7 @@
       </div>
     </div>
     <div class="cover"></div>
-    <div class="popup js-popup">
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#new-task-icon"></use>
-                </svg>
-            </div>
-          <div class="js-new-task center-pane">Create New Task</div>
-        </div>
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#user-icon"></use>
-                </svg>
-            </div>
-          <div class="center-pane">Create New Client</div>
-        </div>
-        <div class="popup__btn popup__blue-btn flex-block">
-            <div class='casl__svgcontainer'>
-                <svg width="23" height="30">
-                  <use xlink:href="#user-icon"></use>
-                </svg>
-            </div>
-          <div class="center-pane">Create New Transaction</div>
-        </div>
-      <div class="popup__btn popup__red-btn js-close-popup">Cancel</div>
-    </div>
+    
     <div class="black-overlay"></div>
     <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
     <script src="js/app.js"></script>

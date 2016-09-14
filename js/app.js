@@ -3,7 +3,6 @@
 /* beginning functions*/
 function prepareCASLPage() {
   try {
-    document.getElementById('log-link').click();
     document.getElementById('marketing-btn').click();
     var event = new Event('change');
     document.getElementsByClassName('select-consent')[0].dispatchEvent(event);
@@ -36,21 +35,15 @@ function setClickableBlocksListener() {
 
 }
 
-function prepareNewClientPage() {
+function openTab(id) {
   try {
-    document.getElementById('general-link').click();
+    document.getElementById(id).click();
   } catch(e) {
-    console.log('prepareNewClientPage', e);
+    console.log('openTab', id, e);
   }
 }
 
-function prepareEmailMarketingPage() {
-  try {
-    document.getElementById('email-link').click();
-  } catch(e) {
-    console.log('prepareEmailMarketingPage', e);
-  }
-}
+
 
 function preparePopupTodoPage() {
   document.documentElement.addEventListener('click', onShowTodoPopup);
@@ -405,53 +398,27 @@ function setConsentPane(id) {
 }
 
 function fillHistoryPane() {
-  var history = {
-      'info':[
-          {
-              'src': 'images/h1.jpg',
-              'date': '12/8/2015',
-              'status': 'Sold',
-              'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
-          },
-          {
-              'src': 'images/h3.jpg',
-              'date': '12/8/2015',
-              'status': 'Bought',
-              'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
-          },
-          {
-              'src': 'images/h2.jpg',
-              'date': '12/8/2015',
-              'status': 'Bought',
-              'address': '24 Merlion St. Wilson, Toronto L7T8N8'
-          }
-      ]
-  };
   var parentEl = document.getElementById('history');
   while (parentEl.children.length > 0) {
     parentEl.removeChild(parentEl.children[0]);
   }
-  for (var i = 0; i < history['info'].length; i++) {
+  for (var i = 0; i < historyCASL['info'].length; i++) {
     var newItem = document.createElement('div');
-    newItem.className = 'history-item flex-block ' + history['info'][i]['status'].toLowerCase();
+    newItem.className = 'history-item flex-block ' + historyCASL['info'][i]['status'].toLowerCase();
     parentEl.appendChild(newItem);
-    /*if (history['info'][i] == 'Sold') {
-      newItem.style.borderColor = '#ED1C21';//red
-    } else {
-      newItem.style.borderColor = '#2FAA01';//green
-    }*/
+
     var image = document.createElement('img');
     image.className = 'history-img';
-    image.src = history['info'][i]['src'];
+    image.src = historyCASL['info'][i]['src'];
     image.width = 90;
     image.height = 65;
     var text = document.createElement('div');
     text.className = 'history-text no-indent';
-    text.innerHTML = history['info'][i]['address'];
+    text.innerHTML = historyCASL['info'][i]['address'];
 
     var date = document.createElement('p');
     date.className = "date-status-text";
-    date.innerHTML = '<p>' + history['info'][i]['date'] + '</p> <p>' + history['info'][i]['status'] + '</p>';
+    date.innerHTML = '<p>' + historyCASL['info'][i]['date'] + '</p> <p>' + historyCASL['info'][i]['status'] + '</p>';
     text.appendChild(date);
     newItem.appendChild(image);
     newItem.appendChild(text);
@@ -587,13 +554,6 @@ function startFind(inputValue, selectValue) {
     var result = finding(inputValue, selectValue);
     for (var i = 0; i < result.length; i++) {
         makeResultElem(tab, resultPane, result[i]);
-    }
-}
-function openClient() {
-    try {
-        document.getElementById('client-link').click();
-    } catch(e) {
-        console.log('error! cannot open client tab in searchbar!', e);
     }
 }
 
@@ -882,6 +842,10 @@ function setInfiniteScrollListeners(scrollSelector, itemsCount, callback, datase
     });
     $(scrollSelector).scroll();
 }
+function deleteInfiniteScrollListeners(scrollSelector) {
+  $(window).off('scroll')
+  $(scrollSelector).off('scroll')
+}
 
 function infiniteScrollItems(scrollSelector, itemsCount, callback, dataset){
     var offset = $(scrollSelector + ' li').length;
@@ -1087,8 +1051,94 @@ function fillEmailPersonsList() {
       return;
     }
     setInfiniteScrollListeners('.js-managelist-step2 .email-marketing__table', 10, createEmailListItem, personsList['info']);
-    
-    //$('.js-managelist-step2 .email-marketing__row').on('click', onEmailListItemDelete);
+}
+
+
+function createTransactionItem(parent, currentInfo) {
+    if (currentInfo == undefined)
+      return -1;
+    var newItem = document.createElement('li');
+    newItem.className = 'transaction-item';
+
+    var contentItem = document.createElement('div');
+    contentItem.className = 'transaction-item-content flex-block';
+    var image = document.createElement('img');
+    image.className = 'history-img';
+    image.src = currentInfo['src'];
+    image.width = 150;
+    image.height = 85;
+    var text = document.createElement('div');
+    text.className = 'history-text no-indent';
+    text.innerHTML = currentInfo['address'];
+
+    contentItem.appendChild(image);
+    contentItem.appendChild(text);
+
+    newItem.appendChild(contentItem);
+
+    contentItem = document.createElement('div');
+    contentItem.className = 'transaction-price-block flex-block';
+    text = document.createElement('div');
+    text.innerHTML = 'Asking: $' + currentInfo['price'].replace(/(\d)(?=(\d\d\d)+([^\d]|$))/g, '$1,');
+    contentItem.appendChild(text);
+    text = document.createElement('div');
+    text.innerHTML = currentInfo['seller'];
+    contentItem.appendChild(text);
+
+    newItem.appendChild(contentItem);
+    $(newItem).on('click', function(e) {
+      window.location = 'transaction-profile.html';
+    });/**/
+    $(newItem).on("swipe", function(e){
+      e.preventDefault();
+      var popup = $('.action-with-person-popup');
+      if ($(this).hasClass('slided')) {
+        popup.fadeOut();
+        $('.slided').removeClass('slided');
+        $(window).off('resize',resizeTransactionPopup);
+        return;
+      }
+      $('.slided').removeClass('slided');
+
+      $(this).addClass('slided');
+      popup.fadeIn();
+      popup.insertAfter($(this));
+      popup.height($(this).height());
+      popup.css({top: $(this).position().top + 'px'});
+      $(window).on('resize', resizeTransactionPopup);
+    });
+
+    parent.append(newItem);
+}
+
+function resizeTransactionPopup() {
+  var popup = $('.action-with-person-popup');
+  popup.height(popup.prev().height());
+}
+
+function fillTransactionsInfiniteList() {
+    var block = $('.transactions-list');
+    if (block == []) {
+      return;
+    }
+    deleteInfiniteScrollListeners('.transactions-list')
+    block.empty();
+    historyTransaction = [];
+    var searchVal = $('.transaction__search-input').val().toLowerCase();
+    if (searchVal.length == 0) {
+      historyTransaction.push.apply(historyTransaction, historyCASL['info']);
+    } else {
+      for (var i = 0; i < historyCASL['info'].length; i++) {
+        if (historyCASL['info'][i]['seller'].toLowerCase().indexOf(searchVal) != -1 ||
+            historyCASL['info'][i]['address'].toLowerCase().indexOf(searchVal) != -1 ||
+            historyCASL['info'][i]['price'].toLowerCase().indexOf(searchVal) != -1 ||
+            historyCASL['info'][i]['date'].toLowerCase().indexOf(searchVal) != -1) {
+
+          historyTransaction.push(historyCASL['info'][i]);
+        }
+      }
+    }
+    setInfiniteScrollListeners('.transactions-list', 10, createTransactionItem, historyTransaction);
 }
 
 
@@ -1280,15 +1330,23 @@ function fillEmailPersonsList() {
       })      
     });
 
-    //$('.js-edit-delete').on('click', onEditDeleteClientClick);
 
     $('.js-edit-button').on('click', function(e) {
       window.location = 'contact-new.html';
     });
 
-
     $('.js-delete-button').on('click', onDeleteClientClick);
 
+
+    $('.js-edit-transaction-button').on('click', function(e) {
+      window.location = 'add-edit-transaction.html';
+    });
+
+    $('.transaction-popup__button.delete-button').on('click', function(){
+      $('.slided').removeClass('slided');
+      $('.action-with-person-popup').fadeOut();
+      $(window).off('resize',resizeTransactionPopup);
+    });
     //in table with marketing list click on arrow for deleting
     $('.email-marketing__row .js-delete-managelist').on('click', function(e) {
       e.stopPropagation();
@@ -1368,19 +1426,140 @@ function fillEmailPersonsList() {
 
 })(jQuery);
 
-var emailMarketingList = {
-  'info': [
-    {
-      'List Name': 'Investors',
-      'Subscbs': 345,
-      'Unsubscbs': 12
-    },{
-      'List Name': 'Partners',
-      'Subscbs': 48,
-      'Unsubscbs': 2
-    }
-  ]
-}
+
+var historyCASL = {
+    'info':[
+        {
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },{
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },{
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },{
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },{
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },{
+            'src': 'images/h1.jpg',
+            'date': '12/8/2015',
+            'status': 'Sold',
+            'seller': 'Amanda Medonoza',
+            'price': '1900000',
+            'address': '22 Weir St. West Hamilton, Ontario L7T7N8'
+        },{
+            'src': 'images/h3.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Bob Spark',
+            'price': '333800',
+            'address': '34 Westboro St. Milton Town,Ontario L9T7N9'
+        },{
+            'src': 'images/h2.jpg',
+            'date': '12/8/2015',
+            'status': 'Bought',
+            'seller': 'Jason Seib',
+            'price': '50000',
+            'address': '24 Merlion St. Wilson, Toronto L7T8N8'
+        },
+    ]
+};
+
+var historyTransaction = [];
 
 var personsList = {
   'info': [

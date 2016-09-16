@@ -437,7 +437,7 @@ body {
 }
 main {
   padding: 190px 13px 13px;
-  margin: 0 0 40px;
+  /*margin: 0 0 40px;*/
 }
 section {
   background: #fff;
@@ -468,7 +468,7 @@ h2 {
 .breadcrumb {
     width: 100%;
     padding: 16px 0 10px 10px;
-    margin-bottom: 0px;
+    margin: 0px;
     list-style: none;
     background-color: transparent;
     border-radius: 4px;
@@ -608,6 +608,7 @@ p {
 }
 .client-name-text {
   font-size: 25px;
+  margin: 0 0 10px 0;
 }
 .casl__button {
   height: auto;
@@ -1140,7 +1141,7 @@ option {
   width: 100%;
   margin: 5px 0;
 }
-.new-client__full-width-block label.new-client__cell-block {
+.new-client__full-width-block label {
   margin: 0;
 }
 
@@ -1162,8 +1163,10 @@ option {
 .new-client__input,
 .new-client__select,.ui-datepicker-year {
   width: 100%;
+  padding: 5px;
   background-color: #fff;
-  color: #535353;
+  color: rgb(95, 95, 95);
+  font-family: "Open Sans";
   border: 1px solid #13bef3;
   text-align: center;
 }
@@ -1609,7 +1612,7 @@ ul.new-client__tab li.active {
   margin: 0;
 }
 
-.delete-person-popup, .delete-list-overlay, .email-marketing-add-list-popup {
+.delete-person-popup, .delete-list-overlay, .email-marketing-add-list-popup, .send-email-popup {
   position: absolute;
   padding: 10px;
   z-index: 1002;
@@ -2058,7 +2061,7 @@ select > option:hover {
 .result-other-info-text {
   text-align: justify;
   word-wrap: break-word;
-  color: #f3be20;
+  color: rgb(255, 115, 0);
   justify-content: space-between;
 }
 .result-other-info-text div{
@@ -2635,7 +2638,7 @@ ul.popup-todo__tab li label {
 .client-main__title {
   position: fixed;
   z-index: 10;
-  top: 97px;
+  top: 95px;
   width: 100%;
   padding-top: 20px;
 
@@ -2666,7 +2669,9 @@ ul.popup-todo__tab li label {
 }
 
 .email-marketing label {
-  margin: 10px 5px;
+    margin: 5px;
+    display: block;
+    width: auto;
 }
 .email-marketing textarea {
     height: 100px;
@@ -2689,6 +2694,10 @@ ul.popup-todo__tab li label {
   color: rgb(20, 191, 243);
   text-align: center;
   cursor: pointer;
+}
+
+.new-client__table-block .email-marketing__link {
+  font-size: 15px;
 }
 
 .add-more-btn {
@@ -2722,6 +2731,7 @@ ul.popup-todo__tab li label {
 .email-marketing .new-client__select {
   direction: ltr !important;
   text-align-last: left;
+  width: 100%;
 }
 
 .email-marketing .light-blue-btn {
@@ -2795,6 +2805,14 @@ ul.popup-todo__tab li label {
 .email-marketing__table .email-marketing__cell:nth-child(3) {
   flex: 0.5;
 }
+
+.marketing-list-table .email-marketing__row:first-child .email-marketing__cell:nth-child(3) {
+  flex: 1;
+}
+
+.email-marketing__table .email-text {
+  color: rgb(216, 123, 53);
+}
 .email-marketing .delete-person-popup, .email-marketing  .delete-list-overlay  {
   justify-content: center;
   align-items: center;
@@ -2806,7 +2824,7 @@ ul.popup-todo__tab li label {
   width: auto;
 }
 
-.delete-list-popup {
+.red-dangerous-popup {
   position: fixed;
   top: 25%;
   left: 12px;
@@ -2821,10 +2839,10 @@ ul.popup-todo__tab li label {
   overflow: hidden;
 }
 
-.delete-list-popup .delete-list-popup__header label{
+.red-dangerous-popup .red-dangerous-popup__header label{
   width: auto;
 }
-.delete-list-popup .delete-list-popup__header {
+.red-dangerous-popup .red-dangerous-popup__header {
   padding: 5px;
   height: auto;
   margin-bottom: 20px;
@@ -2876,7 +2894,7 @@ ul.popup-todo__tab li label {
   clear: both;
 }
 
-.email-marketing-add-list-popup {
+.email-marketing-add-list-popup, .send-email-popup {
   top: 25%;
   left: 12px;
   width: calc(100% - 25px);
@@ -2884,6 +2902,10 @@ ul.popup-todo__tab li label {
 
   border-radius: 3px;
   overflow: hidden;
+}
+
+.send-email-popup {
+  top: 0px;
 }
 
 .email-marketing__previous-step {
@@ -3036,6 +3058,11 @@ ul.popup-todo__tab li label {
   text-decoration: none;
 }
 
+.add-edit-transaction input, .add-edit-transaction textarea {
+  text-align: right;
+    padding: 5px;
+}
+
 .transaction-profile__documents-container .item-header-text img {
   margin-right: 10px;
 }
@@ -3069,4 +3096,18 @@ ul.popup-todo__tab li label {
 
 .forward-btn-container {
   text-align: center;
+}
+
+
+.load-recipients-btn {
+  width: 100%;
+  margin: 5px 0;
+  padding: 5px 0;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  color: white;
+  background-color: #13bef3;
+  border: 1px solid #13bef3;
+  border-radius: 3px;
 }

@@ -128,19 +128,21 @@
                       <div class="flex-block">
                         
                         <select class="new-client__select" onchange="attachListTag(this.value, '.attached-tags');">
+                          <option disabled selected>Select List</option>
                           <option>Sample List 1</option>
                           <option>Sample List 2</option>
                           <option>Sample List 3</option>
                           <option>Sample List 4</option>
                           <option>Sample List 5</option>
                         </select>
-                        <div class="add-more-btn">+</div>
+                        <!--<div class="add-more-btn">+</div>-->
                       </div>
                       <div class="attached-tags"></div>
                     </div>
                   </div>
                   <div class="indent">
                     <div class="center-pane recipients-block">
+                      <div class="load-recipients-btn">Load Recipients</div>
                       <label>Recipients</label>
                       <div class="casl__button light-blue-btn radius_30 center-pane">
                         <div class='btn-inner-text' onClick="onAllCheckboxesSelect('.js-email-step1 .email-marketing__recipients-list')">Select All Recipients</div>
@@ -166,7 +168,7 @@
                       <textarea class="new-client__textarea" placeholder="Enter Mail Content"></textarea>
                     </div>
                   </div>
-                  <div class="new-client__button new-client__green-btn">Send</div>
+                  <div class="new-client__button new-client__green-btn js-send-email-btn">Send</div>
                 </div>
               </div>
               <!-- other tab-->
@@ -208,7 +210,7 @@
                         <div class="new-client__clickable-block">Pool</div>
                         <div class="new-client__clickable-block">Parking</div>
                         <div class="new-client__clickable-block">Quiet Street</div>
-                        <div class="new-client__clickable-block">In Law Suite</div>
+                        <div class="new-client__clickable-block">In-Law Suite</div>
                         <div class="new-client__clickable-block">Large Lot</div>
                         <div class="new-client__clickable-block">Finished Basement</div>
                         <div class="new-client__clickable-block">Detached Garage</div>
@@ -221,7 +223,7 @@
                         <div class="new-client__clickable-block">Main Flr Fmly Room</div>
                         <div class="new-client__clickable-block">Granite Counters</div>
                         <div class="new-client__clickable-block">Main Floor Den</div>
-                        <div class="new-client__clickable-block">Needs Rep</div>
+                        <div class="new-client__clickable-block">Needs Repair</div>
                       </div>
                     </div>
                     <div class="new-client__bold-text">Neighbourhood</div>
@@ -257,7 +259,7 @@
                     </div>
                   </div>
                   <div class="email-marketing__recipients-list"></div>
-                  <div class="new-client__button new-client__green-btn">Send</div>
+                  <div class="new-client__button new-client__green-btn js-send-email-btn">Send</div>
                 </div>
               </div>
               <!-- other tab-->
@@ -276,7 +278,6 @@
                         <div class="email-marketing__cell">List Name</div>
                         <div class="email-marketing__cell">Subscbs</div>
                         <div class="email-marketing__cell">Unsubscbs</div>
-                        <div class="email-marketing__cell"></div>
                     </div>
                     <div class="flex-block email-marketing__row ">
                         <div class="email-marketing__cell">Investors</div>
@@ -398,15 +399,22 @@
         <div class="casl__button casl__green-btn radius_30">Save</div>
       </div>
     </div>
+
+    <div class="send-email-popup">
+      Do you really want to send email?<br>
+      <div class="delete-person-popup__btn del">Yes</div>
+      <div class="delete-person-popup__btn">No</div>
+    </div>
+
     <div class='delete-person-popup'>
-        <img src="images/delete-icon.png" height="25"/><label>Remove From List?</label>
+        <img src="images/delete-icon.png" height="25"/><label>Remove From List</label>
     </div>
     <div class='delete-list-overlay'>
         <div class="flex-block delete-list-overlay__content"><img src="images/delete-icon.png" height="25"/>Delete?</div>
         <a class='js-hide-overlay'><i class="icon icon--hide"></i></a>
     </div>
-    <div class='delete-list-popup'>
-      <div class='flex-block delete-list-popup__header'><img src="images/delete-icon.png" height="25"/><label>Delete List?</label></div>
+    <div class='red-dangerous-popup'>
+      <div class='flex-block red-dangerous-popup__header'><img src="images/delete-icon.png" height="25"/><label>Delete List?</label></div>
       <div class='clearfix'>
         <div class='delete-popup__btn delete-btn'>Delete</div>
         <div class='delete-popup__btn'>Cancel</div>

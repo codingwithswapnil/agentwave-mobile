@@ -1029,7 +1029,7 @@ function createEmailListItem(parent, currentInfo) {
     cell.innerHTML = currentInfo['Name'];
     row.appendChild(cell);
     cell = document.createElement('div');
-    cell.className = 'email-marketing__cell';
+    cell.className = 'email-marketing__cell email-text';
     cell.innerHTML = currentInfo['Email'];
     row.appendChild(cell);
     cell = document.createElement('div');
@@ -1147,6 +1147,9 @@ function fillTransactionsInfiniteList() {
   $(document).ready(function() {
 
     $('main').css('paddingTop', $('header').height() + 16 + ($('.client-main__title').height() ? $('.client-main__title').height() + 20 : 0));
+    if ($('.btn--new-todo').length > 0) {
+      $('main').css('marginBottom', $('.btn--new-todo').height() + 16 + 'px');
+    }
     $('.cover').on('click', function() {
       $(this).removeClass('cover--is-visible')
       $('.menubar').removeClass('menubar--is-visible');
@@ -1360,10 +1363,10 @@ function fillTransactionsInfiniteList() {
         e.stopPropagation();
         popup.fadeOut();
         $('.black-overlay').fadeIn();
-        $('.delete-list-popup').fadeIn();
+        $('.red-dangerous-popup').fadeIn();
         $('.black-overlay').on('click', function(e) {
           e.stopPropagation();
-          $('.delete-list-popup').fadeOut();
+          $('.red-dangerous-popup').fadeOut();
           $('.black-overlay').fadeOut();
           $('.black-overlay').off('click');
         })
@@ -1383,7 +1386,7 @@ function fillTransactionsInfiniteList() {
     //in red popup for list deleting click on buttons
     $('.delete-popup__btn').on('click', function(e) {
       e.stopPropagation();
-      $('.delete-list-popup').fadeOut();
+      $('.red-dangerous-popup').fadeOut();
       $('.black-overlay').fadeOut();
     })
 
@@ -1408,6 +1411,37 @@ function fillTransactionsInfiniteList() {
           $('.email-marketing-add-list-popup').fadeOut();
           $('.black-overlay').fadeOut();
       });
+    })
+
+    $('.js-send-email-btn').on('click', function(e) {
+      e.stopPropagation();
+      var coord = e.pageY - e.clientY + e.clientY/2;
+      $('.black-overlay').fadeIn();
+      $('.send-email-popup').fadeIn();
+      $('.send-email-popup').css('marginTop', coord + 'px');
+      $(document).one('click', function(e) {
+          e.stopPropagation();
+          $('.send-email-popup').fadeOut();
+          $('.black-overlay').fadeOut();
+      });
+    });
+
+    $('.js-save-transaction-field').on('click', function(e) {
+      e.stopPropagation();
+      var requiredFields = $('.js-required-field');
+      for (var i = 0; i < requiredFields.length; i++) {
+        if ($(requiredFields[i]).val() == '') {
+          $('.black-overlay').fadeIn();
+          $('.red-dangerous-popup').fadeIn();
+          $('.red-dangerous-popup').css({top: e.clientY/2});
+          $(document).one('click', function(e) {
+              e.stopPropagation();
+              $('.red-dangerous-popup').fadeOut();
+              $('.black-overlay').fadeOut();
+          });
+          break;
+        }
+      }
     })
     if ($('.new-client__clickable-block') != []) {
       setClickableBlocksListener();

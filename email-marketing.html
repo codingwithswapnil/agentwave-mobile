@@ -182,7 +182,7 @@
                       <div class="new-client__row-block">
                         <label class="new-client__cell-block">Property Type</label>
                         <div class="new-client__cell-block">
-                          <a class="email-marketing__link">Select Property Type ></a>
+                          <a class="email-marketing__link" id="email-marketing__select-property-type">Select Property Type ></a>
                         </div>
                       </div>
                       <div class="new-client__row-block">
@@ -204,7 +204,9 @@
                         </div>
                       </div>
                     </div>
-                    <div class="new-client__bold-text">Special Features</div>
+                    <div class="new-client__button new-client__gray-btn" id="special-features-btn" onclick="controlPaneVisibility(this,document.getElementById(&quot;special-features&quot;));">
+                      <div>Special Features</div><span class="new-client__image arrow-show"></span>
+                    </div>
                     <div class="" id="special-features">
                       <div class="new-client__list-of-clickable-blocks flex-block">
                         <div class="new-client__clickable-block">Pool</div>
@@ -404,6 +406,21 @@
       Do you really want to send email?<br>
       <div class="delete-person-popup__btn del">Yes</div>
       <div class="delete-person-popup__btn">No</div>
+    </div>
+
+    <div class="select-property-type-popup">
+        <div>Please, select property type:</div>
+        <ul class="email-property-types">
+          <li>
+            <label><input type="radio" name="select-property-type-radio" />Type1</label>
+          </li>
+          <li>
+            <label><input type="radio" name="select-property-type-radio"/>Type2</label>
+          </li>
+          <li>
+            <label><input type="radio" name="select-property-type-radio"/>MyType</label>
+          </li>
+        </ul>
     </div>
 
     <div class='delete-person-popup'>

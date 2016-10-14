@@ -875,8 +875,8 @@ function onDeleteClientClick(e) {
   block.append(popup);
   popup.fadeIn();
   //$('.black-overlay').on('click', deleteClientPopupHide);
-  $('.delete-person-popup__btn').on('click', deleteClientPopupHide);
-  $(document).one('click', function(e) {
+  $('.delete-person-popup__btn').on('click touchstart', deleteClientPopupHide);
+  $(document).one('click touchstart', function(e) {
       popup.fadeOut();
   });
 }
@@ -1010,12 +1010,12 @@ function onEmailListItemDelete(e) {
   block.append(popup);
   popup.fadeIn().css('display', 'flex');
 
-  $(popup).on('click', deleteClientPopupHide);
+  $(popup).on('click touchstart', deleteClientPopupHide);
 
-  $(document).one('click', function(e) {
+  $(document).one('click touchstart', function(e) {
       popup.fadeOut();
   });
-
+  return false;
 }
 
 function createEmailListItem(parent, currentInfo) {
@@ -1042,7 +1042,7 @@ function createEmailListItem(parent, currentInfo) {
     row.appendChild(cell);
 
     parent.append(row);
-    $(row).on('click', onEmailListItemDelete);
+    $(row).on('click touchstart', onEmailListItemDelete);
 }
 
 function fillEmailPersonsList() {
@@ -1424,8 +1424,28 @@ function fillTransactionsInfiniteList() {
           $('.send-email-popup').fadeOut();
           $('.black-overlay').fadeOut();
       });
+
     });
 
+    $('#email-marketing__select-property-type').on('click touchstart', function(e) {
+      e.stopPropagation();
+      $('.black-overlay').fadeIn();
+      $('.select-property-type-popup').fadeIn();
+      var currentValue = $('#email-marketing__select-property-type').text().replace(' >', '');
+      $(".select-property-type-popup .email-property-types label:contains('" + currentValue + "')").find('input').prop('checked', true);
+      
+      $(".select-property-type-popup .email-property-types label").one('click', function(e) {
+        var propertyType = $(e.target).closest('li label').text();
+        $('#email-marketing__select-property-type').text(propertyType + ' >');
+      });
+
+      $(document).one('click', function(e) {
+          e.stopPropagation();
+          $('.select-property-type-popup').fadeOut();
+          $('.black-overlay').fadeOut();
+      });
+      return false;
+    })
     $('.js-save-transaction-field').on('click', function(e) {
       e.stopPropagation();
       var requiredFields = $('.js-required-field');

@@ -822,7 +822,7 @@ function deleteClientPopupHide(e) {
   $('.black-overlay').fadeOut();
   $('.delete-person-popup').fadeOut();
   $('.black-overlay').off('click');
-  $('.delete-person-popup__btn').off('click');
+  $('.popup__yes-no-btn').off('click');
 }
 function onCmnctingOpen() {
   $('[data-tab="cmncting"]').click();
@@ -875,7 +875,7 @@ function onDeleteClientClick(e) {
   block.append(popup);
   popup.fadeIn();
   //$('.black-overlay').on('click', deleteClientPopupHide);
-  $('.delete-person-popup__btn').on('click touchstart', deleteClientPopupHide);
+  $('.popup__yes-no-btn').on('click touchstart', deleteClientPopupHide);
   $(document).one('click touchstart', function(e) {
       popup.fadeOut();
   });
@@ -1071,8 +1071,13 @@ function createTransactionItem(parent, currentInfo) {
     text.className = 'history-text no-indent';
     text.innerHTML = currentInfo['address'];
 
+    var popupArrow = document.createElement('div');
+    popupArrow.className = "transaction-edit-delete-btn";
+    popupArrow.innerHTML = '<i class="icon icon--more"></i>';
+
     contentItem.appendChild(image);
     contentItem.appendChild(text);
+    contentItem.appendChild(popupArrow);
 
     newItem.appendChild(contentItem);
 
@@ -1084,15 +1089,19 @@ function createTransactionItem(parent, currentInfo) {
     text = document.createElement('div');
     text.innerHTML = currentInfo['seller'];
     contentItem.appendChild(text);
-
     newItem.appendChild(contentItem);
     $(newItem).on('click', function(e) {
+      if (e.target.closest(".transaction-edit-delete-btn")) {
+        return false;
+      }
       window.location = 'transaction-profile.html';
     });/**/
-    $(newItem).on("swipe", function(e){
+    //$(newItem).on("swipe", function(e){
+    $(popupArrow).on("click touchstart", function(e){
       e.preventDefault();
       var popup = $('.action-with-person-popup');
-      if ($(this).hasClass('slided')) {
+      var item = $(e.target).closest('.transaction-item');
+      if ($(item).hasClass('slided')) {
         popup.fadeOut();
         $('.slided').removeClass('slided');
         $(window).off('resize',resizeTransactionPopup);
@@ -1100,12 +1109,13 @@ function createTransactionItem(parent, currentInfo) {
       }
       $('.slided').removeClass('slided');
 
-      $(this).addClass('slided');
+      $(item).addClass('slided');
       popup.fadeIn();
-      popup.insertAfter($(this));
-      popup.height($(this).height());
-      popup.css({top: $(this).position().top + 'px'});
+      popup.insertAfter($(item));
+      popup.height($(item).height());
+      popup.css({top: $(item).position().top + 'px'});
       $(window).on('resize', resizeTransactionPopup);
+      return false;
     });
 
     parent.append(newItem);
@@ -1419,7 +1429,7 @@ function fillTransactionsInfiniteList() {
       $('.black-overlay').fadeIn();
       $('.send-email-popup').fadeIn();
       $('.send-email-popup').css('marginTop', coord + 'px');
-      $(document).one('click', function(e) {
+      $(".popup__yes-no-btn, .black-overlay").one('click', function(e) {
           e.stopPropagation();
           $('.send-email-popup').fadeOut();
           $('.black-overlay').fadeOut();

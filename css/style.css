@@ -1625,7 +1625,7 @@ ul.new-client__tab li.active {
 
   background-color: #f2f2f2;
 }
-.delete-person-popup__btn {
+.popup__yes-no-btn {
   display: inline-block;
   width: 49%;
   padding: 5px;
@@ -1634,7 +1634,7 @@ ul.new-client__tab li.active {
   color: white;
   background-color: #2FAA01;
 }
-.delete-person-popup__btn.del {
+.popup__yes-no-btn.del {
   background-color: #DB5168;
 }
 
@@ -2908,6 +2908,15 @@ ul.popup-todo__tab li label {
   top: 0px;
 }
 
+.send-mail-content input, textarea {
+  display: inline-block;
+  margin: 10px;
+  padding: 0 5px;
+  color: #535353;
+  width: 200px;
+  border: 1px solid #A9A9A9;
+}
+
 .email-marketing__previous-step {
     width: 50%;
     float: left;
@@ -2950,6 +2959,7 @@ ul.popup-todo__tab li label {
     width: 30%;
     height: auto;
     margin: 5px 0;
+    padding-right: 8px;
     flex-direction: column;
 }
 .transaction-popup__button{
@@ -3130,4 +3140,11 @@ ul.popup-todo__tab li label {
 
 .email-property-types {
   list-style-type: none;
+}
+
+.transaction-edit-delete-btn {
+  display: inline-block;
+  padding-top: 30px;
+  padding-left: 20px;
+  padding-right: 10px;
 }

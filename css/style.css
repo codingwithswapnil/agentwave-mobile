@@ -3148,3 +3148,271 @@ ul.popup-todo__tab li label {
   padding-left: 20px;
   padding-right: 10px;
 }
+
+/**
+ * Schedule page
+ */
+
+ .inner-main-content {
+  padding: 107px 13px 13px;
+ }
+
+ .schedule-header {
+  margin: 0;
+  padding: 10px;
+  text-align: center;
+ }
+
+.slide {
+  padding: 0 13px;
+  text-align: center;
+}
+
+.schedule-tab__header {
+  display: inline-block;
+  font-size: 20px;
+  color: #8e8e8e;
+  vertical-align: middle;
+}
+
+.schedule-prev {
+  position: absolute;
+  left: 13px;
+  top: 0;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: #cdcccc;
+  border-radius: 50%;
+  vertical-align: middle;
+  z-index: 2;
+}
+
+.schedule-prev:before {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5px;
+  margin-left: -4px;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  transform: rotate(-225deg);
+  content: '';
+}
+
+.schedule-next {
+  position: absolute;
+  right: 13px;
+  top: 0;
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  background: #cdcccc;
+  border-radius: 50%;
+  vertical-align: middle;
+  z-index: 2;
+}
+
+.schedule-next:before {
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -5px;
+  margin-left: -7px;
+  border-bottom: 1px solid #ffffff;
+  border-right: 1px solid #ffffff;
+  transform: rotate(-45deg);
+  content: '';
+}
+
+.day-table,
+.week-table {
+  // width: 100%;
+  margin-top: 20px;
+  text-align: left;
+  border-collapse: collapse;
+}
+
+.day-table td {
+  box-sizing: border-box;
+  padding: 16px 0 14px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.day-table td:first-child {
+  width: 10%;
+  padding-right: 7px;
+}
+
+.day-table td:not(:first-child) {
+  padding-left: 7px;
+}
+
+.day-table p {
+  width: 97%;
+  margin: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.alert {
+  color: #b71111;
+}
+
+.week-table .alert {
+  background: #ed145b;
+}
+
+.call {
+  color: #2167a1;
+}
+
+.week-table .call {
+  background: #f7941d;
+}
+
+.meeting {
+  color: #e3b71f;
+}
+
+.week-table .meeting {
+  background: #99cdff;
+}
+
+.payment {
+  color: #2cbf13;
+}
+
+.week-table .payment {
+  background: #39b54a;
+}
+
+.week-table {
+  table-layout: fixed;
+  padding: 0;
+  border-spacing: 0;
+  font-size: 14px;
+}
+
+.week-table th:first-child {
+  width: 40px;
+}
+
+.week-table td {
+  overflow: hidden;
+  padding: 16px 0 14px;
+  border-bottom: 1px solid #d7d7d7;
+}
+
+.week-table td:not(:first-child) {
+  color: #ffffff;
+}
+
+.bx-wrapper .bx-viewport {
+  left: 0;
+  border: none;
+  box-shadow: none;
+}
+
+.bx-next,
+.bx-prev {
+  position: relative;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  z-index: 2;
+  outline: none;
+}
+
+.casl__tabcontent {
+  position: relative;
+}
+
+.schedule .casl__tabcontent {
+  margin-top: 20px;
+  padding-bottom: 13px;
+}
+
+.month-view {
+  text-align: center;
+  padding: 0 10px;
+}
+
+.month-view td {
+  text-align: center;
+}
+
+.month-view .schedule-tab__header {
+  display: table-cell;
+}
+
+.month-view .schedule-next,
+.month-view .schedule-prev {
+  top: 10px;
+}
+
+.month-view table {
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.month-view tbody tr:first-child td {
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+.month-view tbody tr:not(:first-child) td {
+  border: 1px solid #d7d7d7;
+}
+
+.month-view td {
+  padding: 10px 0;
+  position: relative;
+}
+
+.month-view td.not-current {
+  color: #c2c2c2;
+}
+
+.month-view td.normal {
+  color: #8e8e8e;
+}
+
+.month-view td .events-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.month-view td .events-container span {
+  width: 100%;
+  height: 3px;
+  margin-top: 2px;
+}
+
+.month-view td span.alert {
+  background: #ed145b;
+}
+
+.month-view td span.call {
+  background: #0072bc;
+}
+
+.month-view td span.meeting {
+  background: #f26522;
+}
+
+.month-view td span.payment {
+  background: #39b54a;
+}
+

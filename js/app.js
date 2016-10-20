@@ -1326,6 +1326,11 @@ function fillTransactionsInfiniteList() {
     $('.js-new-task').on('click', function() {
       $('.popup').fadeOut();
       $('.popup-todo').fadeIn();
+      var time = $(this).find('td');
+      if (time.length) {
+        var perpTime = $(time[0]).text();
+        $('.js-time').val(perpTime);
+      }
       preparePopupTodoPage();
     });
 

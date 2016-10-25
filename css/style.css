@@ -3163,6 +3163,10 @@ ul.popup-todo__tab li label {
   text-align: center;
  }
 
+ .schedule-search {
+  padding: 0 13px 13px;
+ }
+
 .slide {
   padding: 0 13px;
   text-align: center;
@@ -3231,7 +3235,7 @@ ul.popup-todo__tab li label {
 
 .day-table,
 .week-table {
-  // width: 100%;
+  width: 100%;
   margin-top: 20px;
   text-align: left;
   border-collapse: collapse;
@@ -3246,6 +3250,7 @@ ul.popup-todo__tab li label {
 .day-table td:first-child {
   width: 10%;
   padding-right: 7px;
+  text-align: right;
 }
 
 .day-table td:not(:first-child) {

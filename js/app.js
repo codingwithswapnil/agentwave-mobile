@@ -1006,6 +1006,10 @@ function onBlockHide(blockSelector) {
 function onEmailListItemDelete(e) {
   e.stopPropagation();
   var popup = $('.delete-person-popup');
+  if (popup.css('display') != 'none') {
+    popup.fadeOut();
+    return false;
+  }
   var block = $(e.target.closest('.email-marketing__row'));
   block.append(popup);
   popup.fadeIn().css('display', 'flex');
@@ -1095,8 +1099,8 @@ function createTransactionItem(parent, currentInfo) {
         return false;
       }
       window.location = 'transaction-profile.html';
-    });/**/
-    //$(newItem).on("swipe", function(e){
+    });
+    
     $(popupArrow).on("click touchstart", function(e){
       e.preventDefault();
       var popup = $('.action-with-person-popup');

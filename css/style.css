@@ -3168,6 +3168,7 @@ ul.popup-todo__tab li label {
  }
 
 .slide {
+  width: 100%;
   padding: 0 13px;
   text-align: center;
 }

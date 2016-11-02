@@ -101,7 +101,7 @@
         html += '<tr>';
         var k = lastDayOfLastMonth - firstDayOfMonth+1;
         for(var j=0; j < firstDayOfMonth; j++) {
-          html += '<td class="not-current">' + k + '</td>';
+          html += '<td class="not-current js-create-new">' + k + '</td>';
           k++;
         }
       }
@@ -114,9 +114,9 @@
       var rand = Math.floor(Math.random() * 4);
 
       if (chkY == this.currYear && chkM == this.currMonth && i == this.currDay) {
-        html += '<td class="today ">' + i + '<div class="events-container"><span class="' + events[rand] + '"></span></div></td>';
+        html += '<td class="today js-create-new ">' + i + '<div class="events-container"><span class="' + events[rand] + '"></span></div></td>';
       } else {
-        html += '<td class="normal">' + i + '<div class="events-container"><span class="' + events[rand] + '"></span></div></td>';
+        html += '<td class="normal js-create-new">' + i + '<div class="events-container"><span class="' + events[rand] + '"></span></div></td>';
       }
       // If Saturday, closes the row
       if ( dow == 6 ) {
@@ -127,7 +127,7 @@
       else if ( i == lastDateOfMonth ) {
         var k=1;
         for(dow; dow < 6; dow++) {
-          html += '<td class="not-current">' + k + '</td>';
+          html += '<td class="not-current js-create-new">' + k + '</td>';
           k++;
         }
       }

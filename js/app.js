@@ -1317,7 +1317,7 @@ function fillTransactionsInfiniteList() {
       $('.overlay').fadeOut();
     })
 
-    $('.js-create-new').on('click', function() {
+    $('body').on('click', '.js-create-new', function() {
       $('.js-popup').fadeIn();
       $('.black-overlay').fadeIn();
     })
@@ -1327,7 +1327,7 @@ function fillTransactionsInfiniteList() {
       $('.black-overlay').fadeOut();
     })
 
-    $('.js-new-task').on('click', function() {
+    $('body').on('click', '.js-new-task', function() {
       $('.popup').fadeOut();
       $('.popup-todo').fadeIn();
       var time = $(this).find('td');

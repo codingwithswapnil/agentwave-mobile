@@ -1883,6 +1883,7 @@ header use {
   position: fixed;
   left: 0;
   bottom: 0;
+  z-index: 1003;
 
   width: 100%;
   padding: 8px;
@@ -2908,7 +2909,7 @@ ul.popup-todo__tab li label {
   top: 0px;
 }
 
-.send-mail-content input, textarea {
+.send-mail-content input, .send-mail-content textarea {
   display: inline-block;
   margin: 10px;
   padding: 0 5px;

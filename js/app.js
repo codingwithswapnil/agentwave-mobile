@@ -217,16 +217,17 @@ function openOrangeTab(evt, paneId) {
 
 
 function attachClientById(evt) {
-    var attachPane = $(evt.target).closest('.popup-todo__tabcontent').find('.attached-clients')[0];
+    var attachPane = $(evt.target).closest('.js-search-person-container').find('.attached-clients')[0];
     var clientId = parseInt(evt.target.id.replace('person', ''));
 
-    if (isNaN(clientId))
+    if (isNaN(clientId)) {
         return;
-
+    }
     for (var i = 0; i < info['info'].length; i++) {
         if (info['info'][i]['Id'] == clientId) {
             makeAttachedElem(attachPane, info['info'][i]);
-            $(event.target).closest('.popup-todo__tabcontent').find('input')[0].value = '';
+            $(event.target).closest('.js-search-person-container').find('.js-search-person-input')[0].value = '';
+            $(event.target).closest('.popup-todo__results').css('display', 'none');            
         }
     }
 }
@@ -242,10 +243,11 @@ function makeAttachedElem(parent, item) {
     attItem.appendChild(nameElem);
     var address = document.createElement('div');
     address.className = "result-address-text";
-    if (item['Address'])
+    if (item['Address']) {
       address.innerHTML= item['Address'];
-    else
+    } else {
       address.innerHTML = 'No info';    
+    }
     attItem.appendChild(address);
     var otherinfoElem = document.createElement('div');
     otherinfoElem.className = "result-other-info-text flex-block";
@@ -275,7 +277,7 @@ function startFindForPopupTodo(inputValue, resultPane, event) {
     if (result.length == 0) {
         resultPane.style.display = 'none';
         if (event.keyCode == 13 && inputValue != '') {
-          var attachPane = $(event.target).closest('.popup-todo__tabcontent').find('.attached-clients')[0];
+          var attachPane = $(event.target).closest('.js-search-person-container').find('.attached-clients')[0];
           makeAttachedElem(attachPane, {'Name' : inputValue});
           event.target.value = '';
         } 
@@ -1119,6 +1121,13 @@ function createTransactionItem(parent, currentInfo) {
       popup.height($(item).height());
       popup.css({top: $(item).position().top + 'px'});
       $(window).on('resize', resizeTransactionPopup);
+      $(document).one("click touchstart", function(e){
+        e.preventDefault();
+        popup.fadeOut();
+        $('.slided').removeClass('slided');
+        $(window).off('resize',resizeTransactionPopup);
+        return false;
+      });
       return false;
     });
 

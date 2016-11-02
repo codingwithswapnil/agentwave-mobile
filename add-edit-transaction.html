@@ -209,36 +209,42 @@
 
         <div class="casl__container">
           <div class="center-pane indent">
-              <div class="new-client__table-block">
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Closes On</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="date"/>
+              <div class="js-search-person-container ">
+                  <div class="new-client__table-block">
+                    <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Closes On</label>
+                      <div class="new-client__cell-block">
+                        <input class="new-client__input" type="date"/>
+                      </div>
+                    </div>
+                    <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Buyer</label>
+                      <div class="new-client__cell-block">
+    				            <input class="new-client__input js-search-person-input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-buyer'), event);" placeholder="Associate with buyer"/>
+    				            <div class='popup-todo__results' id="results-buyer"></div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Buyer</label>
-                  <div class="popup-todo__tabcontent new-client__cell-block">
-					          <div class="attached-clients"></div>
-				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-buyer'), event);" placeholder="Associate with buyer"/>
-				            <div class='popup-todo__results' id="results-buyer"></div>
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Seller</label>
-                  <div class="popup-todo__tabcontent new-client__cell-block">
-					          <div class="attached-clients"></div>
-				            <input class="new-client__input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-seller'), event);" placeholder="Associate with seller"/>
-				            <div class='popup-todo__results' id="results-seller"></div>
-                  </div>
-                </div>
+                  <div class="attached-clients"></div>
               </div>
-            </div>
+              <div class="js-search-person-container ">
+                  <div class="new-client__table-block">
+                    <div class="new-client__row-block">
+                      <label class="new-client__cell-block">Seller</label>
+                      <div class="new-client__cell-block">
+    				            <input class="new-client__input js-search-person-input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results-seller'), event);" placeholder="Associate with seller"/>
+    				            <div class='popup-todo__results' id="results-seller"></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="attached-clients"></div>
+              </div>
+          </div>
 
             <div class="indent">
               <div class="new-client__button new-client__green-btn radius_30 js-save-transaction-field">Save</div>
             </div>
-          </div>
+        </div>
       </div>
     </main>
     <!--popup-->

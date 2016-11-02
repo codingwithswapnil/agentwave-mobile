@@ -678,11 +678,11 @@
             </li>
           </ul>
         </div>
-        <div class="popup-todo__tabcontent" id="important">
+        <div class="popup-todo__tabcontent js-search-person-container" id="important">
           <div class="attached-clients"></div>
           <div class="popup-todo__contentpane">
             <div class="search-form" id="search-form">
-              <input id="search-person" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results'));" placeholder="Associate with client"/>
+              <input id="search-person" class="js-search-person-input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results'));" placeholder="Associate with client"/>
               <div class="popup-todo__svgcontainer">
                 <svg width="18" height="25">
                   <use width="18" height="25" xlink:href="#search-icon"></use>
@@ -737,7 +737,7 @@
             <div class="attached-clients"></div>
             <div class="popup-todo__contentpane">
                 <div class="search-form" id="search-form">
-                  <input id="search-input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results2'));" placeholder="Associate with client"/>
+                  <input id="search-input" class="js-search-person-input" type="text" onkeyup="startFindForPopupTodo(this.value, document.getElementById('results2'));" placeholder="Associate with client"/>
                   <div class="popup-todo__svgcontainer">
                     <svg width="18" height="25">
                       <use width="18" height="25" xlink:href="#search-icon"></use>

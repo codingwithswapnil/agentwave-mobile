@@ -294,6 +294,41 @@ function startFindForPopupTodo(inputValue, resultPane, event) {
     }/**/
 }
 
+function startFindTransactionPersons(inputValue, resultPane, event) {
+    var elems = document.getElementsByClassName('popup-todo__search-result');
+    while (resultPane.children.length > 0) {
+        resultPane.removeChild(resultPane.children[0]);
+    }
+    var result = finding(inputValue, 'Name');
+    if (result.length == 0) {
+        resultPane.style.display = 'none';
+    } else {
+        resultPane.style.display = 'block';
+    }
+    for (var i = 0; i < result.length; i++) {
+        var person = document.createElement('div');
+        person.className = "popup-todo__search-result";
+        person.innerHTML = result[i]['Name'];
+        person.id = 'person' + result[i]['Id'];
+        person.addEventListener('click', function (evt) {
+            var attachPane = $(evt.target).closest('.js-search-person-container').find('.attached-clients')[0];
+            var clientId = parseInt(evt.target.id.replace('person', ''));
+
+            if (isNaN(clientId)) {
+                return;
+            }
+            for (var i = 0; i < info['info'].length; i++) {
+                if (info['info'][i]['Id'] == clientId) {
+                    createPersonItem(attachPane, info['info'][i]);
+                    $(evt.target).closest('.js-search-person-container').find('.js-search-person-input')[0].value = '';
+                    $(evt.target).closest('.popup-todo__results').css('display', 'none');            
+                }
+            }
+        } , false);
+        resultPane.appendChild(person);
+    }/**/
+}
+
 
 
 
@@ -530,6 +565,61 @@ function findPersons(value, resultPane) {
 
     newItem.appendChild(image);
   }
+
+}
+
+function createPersonItem(resultPane, item, onElementClickCallback) {
+    var newItem = document.createElement('div');
+    newItem.className = 'person-item flex-block';
+    switch (item['Name'].length%3){
+      case 0:
+        newItem.className += ' blue-border';
+        break;
+      case 1:
+        newItem.className += ' orange-border';
+        break;
+      case 2:
+        newItem.className += ' pink-border';
+        break;
+    }
+    resultPane.appendChild(newItem);
+    var text = document.createElement('div');
+    text.className = 'person-text no-indent';
+    text.addEventListener('click', onElementClickCallback, false);
+    newItem.appendChild(text);
+
+    var name = document.createElement('div');
+    name.className = 'item-header-text';
+    name.innerText = item['Name'];
+    text.appendChild(name);
+
+    var tmp = document.createElement('div');
+    tmp.className = 'item-info-text';
+    tmp.innerText = item['Address'];
+    text.appendChild(tmp);
+
+    tmp = document.createElement('div');
+    tmp.className = 'person-justified-text';
+    var str = '<div>';
+    if (item['Category'])
+      if (item['Category'].toLowerCase().indexOf('no category') == -1)
+        str += item['Category'] + '</div> <div>';
+      else
+        str += '</div> <div>';
+    else
+      str += '</div> <div>';
+    var contact = item['Phone number'] ? item['Phone number'] : item['e-mail']
+    if (contact)
+      str += contact;
+    str += '</div>'
+    tmp.innerHTML = str;
+    text.appendChild(tmp);
+      var image = document.createElement('img');
+      image.className = "del-person-icon";
+      image.src = 'images/del-tag.png';
+      image.addEventListener('click', removeParent, false);
+
+    newItem.appendChild(image);
 
 }
 
@@ -877,8 +967,8 @@ function onDeleteClientClick(e) {
   block.append(popup);
   popup.fadeIn();
   //$('.black-overlay').on('click', deleteClientPopupHide);
-  $('.popup__yes-no-btn').on('click touchstart', deleteClientPopupHide);
-  $(document).one('click touchstart', function(e) {
+  $('.popup__yes-no-btn').on('click tap', deleteClientPopupHide);
+  $(document).one('click tap', function(e) {
       popup.fadeOut();
   });
 }
@@ -1016,9 +1106,9 @@ function onEmailListItemDelete(e) {
   block.append(popup);
   popup.fadeIn().css('display', 'flex');
 
-  $(popup).on('click touchstart', deleteClientPopupHide);
+  $(popup).on('click tap', deleteClientPopupHide);
 
-  $(document).one('click touchstart', function(e) {
+  $(document).one('click tap', function(e) {
       popup.fadeOut();
   });
   return false;
@@ -1048,7 +1138,7 @@ function createEmailListItem(parent, currentInfo) {
     row.appendChild(cell);
 
     parent.append(row);
-    $(row).on('click touchstart', onEmailListItemDelete);
+    $(row).on('click tap', onEmailListItemDelete);
 }
 
 function fillEmailPersonsList() {
@@ -1103,11 +1193,11 @@ function createTransactionItem(parent, currentInfo) {
       window.location = 'transaction-profile.html';
     });
     
-    $(popupArrow).on("click touchstart", function(e){
+    $(popupArrow).on("click tap", function(e){
       e.preventDefault();
       var popup = $('.action-with-person-popup');
       var item = $(e.target).closest('.transaction-item');
-      if ($(item).hasClass('slided')) {
+      if (popup.css('display') != 'none') {//$(item).hasClass('slided')) {
         popup.fadeOut();
         $('.slided').removeClass('slided');
         $(window).off('resize',resizeTransactionPopup);
@@ -1121,8 +1211,10 @@ function createTransactionItem(parent, currentInfo) {
       popup.height($(item).height());
       popup.css({top: $(item).position().top + 'px'});
       $(window).on('resize', resizeTransactionPopup);
-      $(document).one("click touchstart", function(e){
+
+      $(document).one("click tap", function(e){
         e.preventDefault();
+        e.stopPropagation();
         popup.fadeOut();
         $('.slided').removeClass('slided');
         $(window).off('resize',resizeTransactionPopup);
@@ -1455,7 +1547,7 @@ function fillTransactionsInfiniteList() {
 
     });
 
-    $('#email-marketing__select-property-type').on('click touchstart', function(e) {
+    $('#email-marketing__select-property-type').on('click tap', function(e) {
       e.stopPropagation();
       $('.black-overlay').fadeIn();
       $('.select-property-type-popup').fadeIn();

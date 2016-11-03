@@ -1669,7 +1669,7 @@ ul.new-client__tab li.active {
   background-color: #fff;
   display: none;
   position: absolute;
-  z-index: 1002;
+  z-index: 7;
   text-align: center;
 }
 header {

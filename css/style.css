@@ -611,6 +611,7 @@ p {
   margin: 0 0 10px 0;
 }
 .casl__button {
+  margin-top: 30px;
   height: auto;
   position: relative;
   width: 100%;
@@ -761,6 +762,7 @@ ul.categories-bar li.selected {
   display: block;
 }
 ul.casl__tab {
+  font-size: 14px;
   list-style-type: none;
   overflow: hidden;
   background-color: #2268a3;
@@ -889,14 +891,13 @@ ul.casl__tab li.active {
   word-wrap: break-word;
 }
 .select-consent {
-  border: 1px solid #d42c44;
-  color: #d42c44;
+  border: 1px solid #28BFF1;
+  border-radius: 10px;
   font-size: 15px;
   font-weight: 600;
-  text-align: center;
   font-family: "Open Sans";
-  -moz-text-align-last: center;
-       text-align-last: center;
+  -moz-text-align-last: left;
+       text-align-last: left;
   line-height: 1.5;
   padding: 5px;
   margin: 0;
@@ -905,9 +906,8 @@ ul.casl__tab li.active {
   -moz-appearance: none;
   outline: none;
   appearance: none;
-  background: url("../images/arrow.png") no-repeat right #fff;
-  background-size: 16px 16px;
-  background-position: 98% 50%;
+  background: url("../images/select-consent-arrow.png") no-repeat right #fff;
+  background-position: 96% 50%;
 }
 option {
   font-weight: 600;
@@ -3338,6 +3338,7 @@ ul.popup-todo__tab li label {
 
 .casl__tabcontent {
   position: relative;
+  font-weight: 200;
 }
 
 .schedule .casl__tabcontent {
@@ -3423,3 +3424,271 @@ ul.popup-todo__tab li label {
   background: #39b54a;
 }
 
+.casl-intro {
+  text-align: center;
+  color: #5a8259;
+  font-weight: 200;
+}
+
+.casl-status {
+  margin: 50px 0 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.casl-status span:first-child {
+  font-weight: 200;
+}
+
+.consent-options {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+.consent-options-list {
+  margin: 50px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.consent-options-list li:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.consent-options-list input[type="radio"],
+.custom-radio input[type="radio"] {
+  display: none
+}
+
+.consent-options-list input[type="radio"] + label,
+.custom-radio input[type="radio"] + label {
+  margin: 0;
+  width: 100%;
+  position: relative;
+  padding-left: 40px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.consent-options-list input[type="radio"] + label:before,
+.custom-radio input[type="radio"] + label:before {
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #E1E1E1;
+  position: absolute;
+  left: 0;
+  top: -5px;
+}
+
+.consent-options-list input[type="radio"]:checked + label:after,
+.custom-radio input[type="radio"]:checked + label:after {
+  content: '';
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #127BC0;
+  position: absolute;
+  left: 5px;
+  top: 0;
+}
+
+.casl__options-btn {
+  background-color: #127BC0;
+  color: #ffffff;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 53px;
+}
+
+.casl__cancel-btn {
+  background-color: #ffffff;
+  color: #c9060d;
+  border: 1px solid #c9060d;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 53px;
+}
+
+.casl__button + .casl__button {
+  margin-top: 12px;
+}
+
+.expressed-pane {
+  display: none;
+  padding: 24px 22px 40px;
+  margin-top: 40px;
+  background-color: #FEF3E3;
+  color: #4a4a4a;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.expressed-pane--clear {
+  margin-top: 60px;
+  padding: 0;
+  background-color: #ffffff;
+  text-align: left;
+}
+
+.expressed-pane--clear label {
+  display: flex;
+}
+
+.expressed-pane--clear .custom-checkbox label:before {
+  top: 50%;
+  margin-top: -15px;
+}
+
+.expressed-pane--clear .custom-checkbox input[type="checkbox"]:checked + label:after {
+  top: 50%;
+  margin-top: -12px;
+}
+
+.expressed-pane .form-row:not(:last-child) {
+  margin-bottom: 60px;
+}
+
+.expressed-pane .form-control {
+  padding: 5px;
+  width: 100%;
+  border: 1px solid #55CEF3;
+  border-radius: 5px;
+}
+
+.expressed-pane textarea {
+  margin: 0;
+}
+
+.expressed-pane label {
+  display: block;
+  margin-bottom: 20px;
+  margin-left: 0;
+  margin-right: 0;
+  width: 100%;
+}
+
+.btn--expressed {
+  margin-top: 30px;
+  width: 234px;
+  height: 50px;
+  background-color: #1DAFEC;
+  color: #ffffff;
+  border-radius: 53px;
+}
+
+.expressed-pane select {
+  border-color: #55CEF3;
+  border-radius: 5px;
+  background: url('../images/select-consent-arrow.png') no-repeat right #fff;
+  -webkit-background-size: 6%;
+  background-size: 6%;
+  background-position: 98% 50%;
+}
+
+.custom-checkbox label {
+  position: relative;
+  padding-left: 60px;
+  margin: 0;
+  width: 100%;
+}
+
+.custom-checkbox label:before {
+  content: '';
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  background-color: #28BFF0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.custom-checkbox input[type="checkbox"]:checked + label:after {
+  content: '';
+  width: 20px;
+  height: 15px;
+  border-left: 1px solid #ffffff;
+  border-bottom: 1px solid #ffffff;
+  transform: rotate(-45deg);
+  position: absolute;
+  left: 5px;
+  top: 2px;
+}
+
+.expressed-options {
+  display: flex;
+  justify-content: space-between;
+  max-width: 200px;
+  margin: 0 auto;
+}
+
+.awesomplete {
+  width: 100%;
+}
+
+.awesomplete > input {
+  height: 30px;
+  padding: 10px;
+  border: 1px solid #84DCF7;
+  border-radius: 5px;
+}
+
+.awesomplete > ul {
+  top: calc(100% + 1px);
+  text-align: left;
+  font-weight: 200;
+  border: 1px solid #C9C9C9;
+  border-radius: 5px;
+}
+
+.awesomplete > ul li {
+  padding: 10px;
+}
+
+.awesomplete > ul li:nth-child(even) {
+  background-color: #E6F7FD;
+}
+
+.casl__back-link {
+  padding: 12px;
+}
+
+.casl__back-link a {
+  position: relative;
+  padding-left: 20px;
+  color: #505050;
+  text-decoration: none;
+}
+
+.casl__back-link a:before {
+  content: '';
+  width: 0.8em;
+  height: 0.8em;
+  border-left: 1px solid #505050;
+  border-bottom: 1px solid #505050;
+  position: absolute;
+  left: 0;
+  top: 4px;
+  transform: rotate(45deg)
+}
+
+.pane-info {
+  color: #5a8259;
+}
+
+input[type="file"] {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+input[type="file"] + label {
+  line-height: 50px;
+}

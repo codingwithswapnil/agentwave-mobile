@@ -42,11 +42,13 @@
   <meta name="description" content="">
   <meta name="keywords" content="">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300" rel="stylesheet">
+  <link rel="stylesheet" href="css/awesomplete.base.css">
+  <link rel="stylesheet" href="css/flatpickr.min.css">
   <link href="css/style.css" rel="stylesheet">
   <script src="js/app.js"></script>
 </head>
 
-<body onload="openTab('log-link'); prepareCASLPage();">
+<body onload="openTab('general-link'); prepareCASLPage();">
   <svg style="display:none;" xmlns="http://www.w3.org/2000/svg">
     <symbol id="back-icon" viewBox="0 0 6 10">
       <title>close-icon</title>
@@ -240,208 +242,187 @@
   <main>
     <div class="casl no-indent">
       <div class="casl__container">
-        <div class="casl__contentpane">
-          <div class="profile-data center-pane">
-            <p class="client-name-text">Megan Rain</p> 3003 Rocky Beach St. Rd W Grand Pacific Tower 2 Los Angeles, California<br/><br/> (+12) 345 6789<br/>meganrain@cwmp.com<br/><br/>
-          </div>
-
-          <div class="casl__button casl__blue-btn radius_15 center-pane" id='spouse-partner' onclick="showAddPersonPopup()">
-            <div class='btn-inner-text'>Spouse / Partner</div>
-          </div><br/>
-          <div class="casl__button casl__orange-btn radius_15 center-pane">Edit Profile</div>
-
+        <div class="casl__back-link">
+          <a href="#">Client Main</a>
         </div>
-        <div class="no-indent" id="marketing-pane">
-          <div class="casl__contentpane align-left indent">Tags
-            <div class="casl__tag-box" id="tags">
-              <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"
-              />
-            </div>
-            <div class="casl__tag-find-result"></div>
+        <div class="casl__contentpane align-left indent">Tags
+          <div class="casl__tag-box" id="tags">
+            <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"
+            />
           </div>
-          <ul class="categories-bar no-indent flex-block">
-            <li class="category" id="open" onclick="selectCategory(event)"><img class="center-pane" src="images/open.png" width="20" height="20" />Open</li>
-            <li class="category" id="closed" onclick="selectCategory(event)"><img class="center-pane" src="images/closed.png" width="20" height="20" />Closed</li>
-            <li class="category" id="connecting" onclick="selectCategory(event)"><img class="center-pane" src="images/connecting.png" width="20" height="20" />Connecting</li>
-            <li class="category" id="follow-up" onclick="selectCategory(event)"><img class="center-pane" src="images/follow-up.png" width="20" height="20" />Follow Up</li>
-            <li class="category no-cat selected" id="no-category" onclick="selectCategory(event)"><img class="center-pane" src="images/no-category-active.png" width="20" height="20" />No Category</li>
-          </ul>
-          <div class="casl__contentpane align-left indent">Follow Up Plan
-            <div class="casl__tag-box">
-              <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"
-              />
-            </div>
-            <div class="casl__tag-find-result"></div> Email List
-            <div class="casl__tag-box">
-              <input class="casl__input-invisible no-indent" type="text" onkeyup="findKeywords(event, this.value, this.parentNode.nextElementSibling);"
-              />
-            </div>
-            <div class="casl__tag-find-result"></div>
-          </div>
-          <div class='indent'>
-            <div class="casl__button casl__green-btn radius_30">Save</div>
-          </div>
+          <div class="casl__tag-find-result"></div>
         </div>
-        <div class="casl__button casl__gray-btn" id="marketing-btn" onclick="controlPaneVisibility(this, document.getElementById(&quot;marketing-pane&quot;));">
-          <div>Show Marketing</div><span class="casl__image arrow-show"></span>
-        </div>
-      </div>
       <div class="casl__container">
         <ul class="casl__tab no-indent flex-block">
-          <li class="casl__tablinks" id="log-link" onclick="commonOpenTab(event, 'casl__')">Log</li>
+          <li class="casl__tablinks" id="general-link" onclick="commonOpenTab(event, 'casl__')">General</li>
           <li class="casl__tablinks" id="wishlist-link" onclick="commonOpenTab(event, 'casl__')">Wishlist</li>
-          <li class="casl__tablinks" id="history-link" onclick="commonOpenTab(event, 'casl__')">History</li>
+          <li class="casl__tablinks" id="trnsction-link" onclick="commonOpenTab(event, 'casl__')">Trnsction</li>
           <li class="casl__tablinks" id="CASL-link" onclick="commonOpenTab(event, 'casl__')">CASL</li>
         </ul>
         <div class="indent">
-          <div class="casl__tabcontent" id="log">
-            <input class="casl__input" type="text" /><span class="casl__image find"></span>
-            <div class="log-search-result"></div>
-            <ul class="infinite-scroll-list">
-            </ul>
+          <div class="casl__tabcontent" id="general">
+            general
           </div>
           <div class="casl__tabcontent" id="wishlist">
-
-            <div class="indent">
-              <div class="new-client__table-block">
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Property Type</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="text" />
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Min. Price</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="text" />
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Max. Price</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="text" />
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Bedrooms</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="text" />
-                  </div>
-                </div>
-                <div class="new-client__row-block">
-                  <label class="new-client__cell-block">Bathrooms</label>
-                  <div class="new-client__cell-block">
-                    <input class="new-client__input" type="text" />
-                  </div>
-                </div>
-              </div>
-              <div class="new-client__full-width-block"></div>
-              <div class="new-client__bold-text">Interested in these areas</div>
-              <div class="new-client__list-of-clickable-blocks flex-block">
-                <div class="new-client__clickable-block">North</div>
-                <div class="new-client__clickable-block">West</div>
-                <div class="new-client__clickable-block">South</div>
-                <div class="new-client__clickable-block">East</div>
-              </div>
-            </div>
-            <div class="new-client__button new-client__gray-btn" id="special-features-btn" onclick="controlPaneVisibility(this,document.getElementById(&quot;special-features&quot;));">
-              <div>Special Features</div><span class="new-client__image arrow-show"></span>
-            </div>
-            <div class="indent" id="special-features">
-              <div class="new-client__list-of-clickable-blocks flex-block">
-                <div class="new-client__clickable-block">Pool</div>
-                <div class="new-client__clickable-block">Parking</div>
-                <div class="new-client__clickable-block">Quiet Street</div>
-                <div class="new-client__clickable-block">In Law Suite</div>
-                <div class="new-client__clickable-block">Large Lot</div>
-                <div class="new-client__clickable-block">Finished Basement</div>
-                <div class="new-client__clickable-block">Detached Garage</div>
-                <div class="new-client__clickable-block">Attached Garage</div>
-                <div class="new-client__clickable-block">Ravine</div>
-                <div class="new-client__clickable-block">Double Garage</div>
-                <div class="new-client__clickable-block">Ensuit Bath</div>
-                <div class="new-client__clickable-block">Waterfront</div>
-                <div class="new-client__clickable-block">Main Floor Laundry</div>
-                <div class="new-client__clickable-block">Main Flr Fmly Room</div>
-                <div class="new-client__clickable-block">Granite Counters</div>
-                <div class="new-client__clickable-block">Main Floor Den</div>
-                <div class="new-client__clickable-block">Needs Rep</div>
-              </div>
-            </div>
-
-            <div class="casl__button casl__green-btn radius_30">Save</div>
+            whishlist
           </div>
-          <div class="casl__tabcontent" id="history"></div>
+          <div class="casl__tabcontent" id="trnsction">
+            trnsction
+          </div>
           <div class="casl__tabcontent" id="CASL">
-            <select class="select-consent radius_15" onchange="setConsentPane(this.value);">
+            <p class="casl-intro">
+              Note that this Consent Information will be applicable only if client is in Canada and will not effect if client is from outside of Canada.
+            </p>
+            <p class="casl-status">
+              <span>Current consent level</span>
+              <span>Expressed Consent</span>
+            </p>
+            <select class="select-consent" onchange="setConsentPane(this.value);">
                 <option value="0" selected="">Change consent Level 5</option>
                 <option value="0">None</option>
-                <option value="1">Implient Consent</option>
-                <option value="2">Expressed Consent</option>
+                <option value="1">Expressed Consent</option>
+                <option value="2">Implied Consent</option>
               </select>
-            <div class="consent-pane no-indent" id="pane-0">
-              <div class="consent-info">
-                <p>Current consent level</p>
-                <p>4</p>
-              </div>
-              <div class="consent-info">
-                <p>Date consent received</p>
-                <p>4/14/2015</p>
-              </div>
-              <div class="consent-info">
-                <p>Method received</p>
-                <p>Yes</p>
-              </div>
-              <div class="consent-info">
-                <p>IP Address</p>
-                <p>121.146.201.87</p>
-              </div>
-            </div>
-            <div class="consent-pane no-indent" id="pane-1">How did you receive implied consent?
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Personal Relationship</div>
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Family Relationship</div>
-              <div class="consent-question">
-                <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span> Existing Business
-                  Relationship</div>
-                <div class="ask-question">
-                  <div class="no-indent">When was the last transaction you had with this client?
-                    <input class="casl__input center-pane" type="text" />
-                  </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
+            <div class="consent-pane consent-options no-indent" id="pane-1">
+              <p class="pane-info">
+                How did you will receive Expressed Consent?
+              </p>
+              <ul class="consent-options-list">
+                <li>
+                  <input type="radio" name="options" value="other" id="other" onchange="setExpressedPane(this.value)">
+                  <label for="other">On Other Platform</label>
+                </li>
+                <li>
+                  <input type="radio" name="options" value="writing" id="writing" onchange="setExpressedPane(this.value)">
+                  <label for="writing">In Writing</label>
+                </li>
+                <li>
+                  <input type="radio" name="options" value="electronically" id="electronically" onchange="setExpressedPane(this.value)">
+                  <label for="electronically">Electronically</label>
+                </li>
+                <li>
+                  <input type="radio" name="options" value="agent" id="agent" onchange="setExpressedPane(this.value)">
+                  <label for="agent">Through Agentwave</label>
+                </li>
+                <li>
+                  <input type="radio" name="options" value="import" id="import" onchange="setExpressedPane(this.value)">
+                  <label for="import">via Import</label>
+                </li>
+              </ul>
+              <div class="expressed-pane" id="expressed-other">
+                <div class="form-row">
+                  <label for="expressed-desc">Describe how you were given Expressed Consent</label>
+                  <textarea class="form-control" id="expressed-desc"></textarea>
+                </div>
+                <div class="form-row">
+                  <label for="expressed-date">Date Expressed Consent was received</label>
+                  <input type="text" class="form-control flatpickr flarpickr-input">
+                </div>
+                <div class="form-row form-row--buttons">
+                  <p>Would you like to upload proof of consent ?</p>
+                  <input type="file" id="file">
+                  <label for="file" class="btn btn--expressed">Upload</button>
                 </div>
               </div>
-              <div class="consent-question">
-                <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span> They gave me their
-                  email</div>
-                <div class="ask-question">
-                  <div class="no-indent">Is this client in a business that could use your services as a Realtor<br/>
-                    <label>
-                        <input type="radio" name="gave-email-question"/>Yes
-                      </label>
-                    <label>
-                        <input type="radio" name="gave-email-question"/>No
-                      </label>
-                  </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
+              <div class="expressed-pane" id="expressed-writing">
+                <div class="form-row">
+                  <p>Would you like to upload proof of consent ?</p>
+                  <input type="file" id="file1">
+                  <label for="file1" class="btn btn--expressed">Upload</button>
                 </div>
               </div>
-              <div class="consent-question">
-                <div class="no-indent"><span class="casl__image arrow-left" onclick="showQuestions(this.parentNode);"></span> Referal from existing
-                  client</div>
-                <div class="ask-question">
-                  <div class="no-indent">Please, enter the name of the client who gave you referal
-                    <input class="casl__input center-pane" type="text" />
-                  </div><span class="casl__image arrow-right" onclick="hideQuestions(this.parentNode);"></span>
+              <div class="expressed-pane" id="expressed-electronically">
+                <div class="form-row">
+                  <label>Describe how you were given Expressed Consent</label>
+                  <select name="expressedGiven" id="expressedGiven">
+                    <option>Team/Agent Website</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label for="expressed-date1">Date Expressed Consent was received</label>
+                  <input type="text" class="form-control flatpickr flatpickr-input" id="expressed-date1">
+                </div>
+                <div class="form-row form-row--buttons">
+                  <p>Would you like to upload proof of consent ?</p>
+                  <input type="file" id="file2">
+                  <label for="file2" class="btn btn--expressed">Upload</button>
                 </div>
               </div>
-              <div class="casl__button casl__blue-btn dark radius_15 center-pane">Obtain crossed consent on my behalf</div>
             </div>
-            <div class="consent-pane no-indent" id="pane-2">
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Received consent on other platform</div>
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Received consent in writing</div>
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Received consent electronically</div>
-              <div class="consent-question"><span class="casl__image arrow-left"></span> Agentwave received consent</div>
+            <div class="consent-pane consent-options no-indent" id="pane-2">
+              <p>
+                How did you will receive Implied Consent?
+              </p>
+              <ul class="consent-options-list">
+                <li>
+                  <input type="radio" value="personal" name="relations" id="personal" onchange="setExpressedPane(this.value)">
+                  <label for="personal">Personal Relationship</label>
+                </li>
+                <li>
+                  <input type="radio" value="family" name="relations" id="family" onchange="setExpressedPane(this.value)">
+                  <label for="family">Family Relationship</label>
+                </li>
+                <li>
+                  <input type="radio" value="existing" name="relations" id="existing" onchange="setExpressedPane(this.value)">
+                  <label for="existing">Existing Business Relationship</label>
+                </li>
+                <li>
+                  <input type="radio" value="email" name="relations" id="email" onchange="setExpressedPane(this.value)">
+                  <label for="email">They Gave Me Their Email Address</label>
+                </li>
+                <li>
+                  <input type="radio" value="referral" name="relations" id="referral" onchange="setExpressedPane(this.value)">
+                  <label for="referral">Referral from Existing Consent</label>
+                </li>
+              </ul>
+              <div class="expressed-pane" id="expressed-existing">
+                <div class="form-row">
+                  <label for="existing-date">When was the last you had with this client?</label>
+                  <input class="form-control flatpickr flatpickr-input" type="text" id="existing-date" placeholder="Select date">
+                </div>
+              </div>
+              <div class="expressed-pane" id="expressed-email">
+                <div class="form-row">
+                  <label>Is this client in business that that could use your service as Realtor ?</label>
+                  <div class="expressed-options">
+                    <div class="custom-radio">
+                      <input type="radio" name="realtor" id="realtorY">
+                      <label for="realtorY">Yes</label>
+                    </div>
+                    <div class="custom-radio">
+                      <input type="radio" name="realtor" id="realtorN">
+                      <label for="realtorN">No</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-row">
+                  <p>Can you upload proof? (i.e. scanned business card) </p>
+                  <input type="file" id="file3">
+                  <label for="file3" class="btn btn--expressed">Upload</button>
+                </div>
+              </div>
+              <div class="expressed-pane" id="expressed-referral">
+                <div class="form-row">
+                  <p>Please enter the name of the client that give you this referral</p>
+                  <input class="awesomplete" list="mylist" />
+                  <datalist id="mylist">
+                    <option>Angelica Moeremans</option>
+                    <option>Angelica Sally Morales</option>
+                    <option>Angelica Brown</option>
+                  </datalist>
+                </div>
+              </div>
+              <div class="expressed-pane--clear">
+                <div class="custom-checkbox">
+                  <input type="checkbox" id="behalf1">
+                  <label for="behalf1">Should we attempt to gain expressed consent on your behalf ?</label>
+                </div>
+              </div>
             </div>
-
-            <div class="casl__button casl__green-btn radius_30">Save</div>
+            <div class="casl__button casl__options-btn">Submit</div>
+            <div class="casl__button casl__cancel-btn">Cancel</div>
           </div>
         </div>
       </div>
@@ -552,38 +533,12 @@
       </svg>
     </div>
   </div>
-  <div class="cover"></div>
 
-  <div class="popup js-popup">
-    <div class="popup__btn popup__blue-btn flex-block">
-      <div class='casl__svgcontainer'>
-        <svg width="23" height="30">
-          <use xlink:href="#new-task-icon"></use>
-        </svg>
-      </div>
-      <div class="js-new-task center-pane">Create New Task</div>
-    </div>
-    <div class="popup__btn popup__blue-btn flex-block">
-      <div class='casl__svgcontainer'>
-        <svg width="23" height="30">
-          <use xlink:href="#user-icon"></use>
-        </svg>
-      </div>
-      <div class="center-pane">Create New Client</div>
-    </div>
-    <div class="popup__btn popup__blue-btn flex-block">
-      <div class='casl__svgcontainer'>
-        <svg width="23" height="30">
-          <use xlink:href="#user-icon"></use>
-        </svg>
-      </div>
-      <div class="center-pane">Create New Transaction</div>
-    </div>
-    <div class="popup__btn popup__red-btn js-close-popup">Cancel</div>
-  </div>
-  <div class="black-overlay"></div>
-  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  <script src="js/jquery-3.2.1.min.js"></script>
+  <script src="js/flatpickr.min.js"></script>
+  <script src="js/awesomplete.min.js"></script>
   <script src="js/app.js"></script>
+  <script src="js/scripts.js"></script>
 </body>
 
 </html>
